@@ -5,7 +5,7 @@
 int main()
 {
   // setup window
-  sf::RenderWindow window(sf::VideoMode({ 1080, 720 }), "Hello World!", sf::Style::Close, sf::State::Windowed);
+  sf::RenderWindow window(sf::VideoMode({ 1080, 720 }), "No Turning Back 2", sf::Style::Close, sf::State::Windowed);
   window.setFramerateLimit(60);
   sf::Image window_icon;
   (void)window_icon.loadFromFile("./data/images/icon.png");
