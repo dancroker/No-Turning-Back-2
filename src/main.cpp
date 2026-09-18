@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Game.hpp"
+
 int main()
 {
   // setup window
@@ -10,6 +12,14 @@ int main()
   sf::Image window_icon;
   (void)window_icon.loadFromFile("./data/images/icon.png");
   window.setIcon(window_icon);
+
+	// setup game
+	Game game(window);
+  if (!game.init())
+  {
+		printf("Failed to initialize game\n\0");
+		return EXIT_FAILURE;
+  }
 
 	// main loop
   while (window.isOpen())
@@ -32,6 +42,8 @@ int main()
       
     }
 
+		game.update();
+		game.render();
     window.display();
   }
   

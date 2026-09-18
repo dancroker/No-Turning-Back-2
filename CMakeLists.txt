@@ -21,7 +21,10 @@ add_subdirectory(external)
 
 # GAME
 add_executable(game 
-	src/main.cpp
+	"src/main.cpp"
+
+  "src/Game.cpp"
+  "src/Game.hpp"
 )
 
 target_link_directories(game PRIVATE
