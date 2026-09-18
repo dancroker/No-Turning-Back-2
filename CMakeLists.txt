@@ -36,7 +36,6 @@ target_link_libraries(game PRIVATE
 
 
 # ASSETS
-file(MAKE_DIRECTORY data)
 if(WIN32)
   add_custom_command(TARGET game POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/data/" "$<TARGET_FILE_DIR:game>/data/"
