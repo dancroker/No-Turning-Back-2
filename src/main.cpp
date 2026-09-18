@@ -4,12 +4,14 @@
 
 int main()
 {
+  // setup window
   sf::RenderWindow window(sf::VideoMode({ 1080, 720 }), "Hello World!", sf::Style::Close, sf::State::Windowed);
   window.setFramerateLimit(60);
   sf::Image window_icon;
   (void)window_icon.loadFromFile("./data/images/icon.png");
   window.setIcon(window_icon);
 
+	// main loop
   while (window.isOpen())
   {
     while (const std::optional event = window.pollEvent())
