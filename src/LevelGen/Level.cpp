@@ -9,23 +9,68 @@ Level::~Level()
 	// Destructor implementation
 };
 
-void Level::generate()
+void Level::loadFile(std::string adress)
 {
-	std::ifstream f("./data/levels/Level_1.txt");
+    std::ifstream f(adress);
 
-    if (!f.is_open()) {
+    // If the file is not open / failed to load
+    if (!f.is_open()) 
+    {
         std::cerr << "Error opening the file!";
     }
 
-    std::string s;
 
+    std::string string;
     // Read each line from the file
-    while (std::getline(f, s))
-        std::cout << s << std::endl;
+    while (std::getline(f, string))
+    {
 
+        int tile_value = 0;
+        bool tens = true;
+        std::vector<int> row;
+
+        for (char c : string)
+        {
+            if (c == ',')
+            {
+                continue;
+            }
+            if (tens)
+            {
+                int tile = c - '0';
+                tile_value += (tile * 10);
+                tens = false;
+            }
+            else
+            {
+                int tile = c - '0';
+                tile_value += tile;
+                row.push_back(tile_value);
+                tile_value = 0;
+                tens = true;
+            }
+        }
+        level_layout.push_back(row);
+    }
     // Close the file
     f.close();
 
+    for (const auto& row : level_layout) {
+        for (int tile : row) {
+            std::cout << tile << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void Level::generate() // Generate the level layout from a file
+{
+    std::string adress = "./data/levels/Level_";
+    int level = level_count; //change this to be random when more levels!
+    adress.append(std::to_string(level));
+    adress.append(".txt");
+    loadFile(adress);
+	
 
 };
 
