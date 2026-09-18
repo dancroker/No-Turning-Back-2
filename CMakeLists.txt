@@ -8,6 +8,10 @@ endif()
 
 project("SBGJ-2026" LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 if(CMAKE_VERSION VERSION_GREATER_EQUAL 4)
   set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 endif()
@@ -43,10 +47,12 @@ else()
   )
 endif()
 
-# INSTALL
-install(TARGETS game
-  RUNTIME DESTINATION bin
-)
-install(DIRECTORY data/
-  DESTINATION bin/data
-)
+# -- im only gonna add this when needed --
+
+# # INSTALL
+# install(TARGETS game
+#   RUNTIME DESTINATION bin
+# )
+# install(DIRECTORY data/
+#   DESTINATION bin/data
+# )
