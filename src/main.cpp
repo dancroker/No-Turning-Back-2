@@ -24,6 +24,8 @@ int main()
 	// main loop
   while (window.isOpen())
   {
+    // TODO: Mark my words, I *WILL* use window.handleEvents() and NO /RTC1 compiler bug will stand in my way!
+    //       As soon as I figure out CMakePresets.json...
     while (const std::optional event = window.pollEvent())
     {
 			if (event->is<sf::Event::Closed>())
@@ -41,7 +43,7 @@ int main()
       }
       
     }
-
+		
 		game.update();
 		game.render();
     window.display();
