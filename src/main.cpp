@@ -13,39 +13,45 @@ int main()
   (void)window_icon.loadFromFile("./data/images/icon.png");
   window.setIcon(window_icon);
 
-	// setup game
-	Game game(window);
+  // setup game
+  Game game(window);
   if (!game.init())
   {
-		printf("Failed to initialize game\n\0");
-		return EXIT_FAILURE;
+    printf("Failed to initialize game\n\0");
+    return EXIT_FAILURE;
   }
 
-	// main loop
+  // main loop
   while (window.isOpen())
   {
     // TODO: Mark my words, I *WILL* use window.handleEvents() and NO /RTC1 compiler bug will stand in my way!
     //       As soon as I figure out CMakePresets.json...
     while (const std::optional event = window.pollEvent())
     {
-			if (event->is<sf::Event::Closed>())
-			{
-				window.close();
-			}
-      else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+      if (event->is<sf::Event::Closed>())
       {
-        switch (keyPressed->scancode)
-        {
-				case sf::Keyboard::Scan::Escape:
-					window.close();
-					break;
-        }
+        window.close();
       }
-      
+      else if (const sf::Event::KeyPressed* keyPressed = event->getIf<sf::Event::KeyPressed>())
+      {
+        game.getInputHandler().handleKeyPressed(*keyPressed);
+      }
+      else if (const sf::Event::KeyReleased* keyReleased = event->getIf<sf::Event::KeyReleased>())
+      {
+        game.getInputHandler().handleKeyReleased(*keyReleased);
+      }
+      else if (const bool& mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+      {
+        game.getInputHandler().handleMouseButtonPressed(&mouseButtonPressed);
+      }
+      else if (const bool& mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>())
+      {
+        game.getInputHandler().handleMouseButtonReleased(&mouseButtonReleased);
+      }
     }
-		
-		game.update();
-		game.render();
+
+    game.update();
+    game.render();
     window.display();
   }
   

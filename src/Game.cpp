@@ -1,4 +1,8 @@
+#include <iostream>
+
 #include "Game.hpp"
+
+#include "enums/GameState.hpp"
 
 Game::Game(sf::RenderWindow& game_window) : window(game_window)
 {
@@ -16,12 +20,72 @@ bool Game::init()
 
 void Game::update()
 {
-	// TODO: add a switch with enum for gamestate
+	switch (current_game_state)
+	{
+	case GameState::MainMenu:
+		break;
+	case GameState::Playing:
+		// TODO: physics, movement, collision detection.
+		break;
+	case GameState::Paused:
+		break;
+	case GameState::GameOver:
+		break;
+	default:
+		break;
+	}
+
+
+	// arrows
+	if (input_handler->checkCharacterAction(CharacterAction::MoveLeft) && input_handler->checkCharacterAction(CharacterAction::Jump))
+	{
+		std::cout << "\\";
+	}
+	else if (input_handler->checkCharacterAction(CharacterAction::MoveRight) && input_handler->checkCharacterAction(CharacterAction::Jump))
+	{
+		std::cout << "/";
+	}
+	else if (input_handler->checkCharacterAction(CharacterAction::Jump))
+	{
+		std::cout << "^";
+	}
+	else if (input_handler->checkCharacterAction(CharacterAction::MoveLeft))
+	{
+		std::cout << "<";
+	}
+	else if (input_handler->checkCharacterAction(CharacterAction::MoveRight))
+	{
+		std::cout << ">";
+	}
+	else
+	{
+		std::cout << ".";
+	}
+	std::cout << std::endl;
 }
 
 void Game::render()
 {
 	window.clear(sf::Color{ 100, 149, 237, 255 });
 
-	window.draw(text_hello_world);
+	switch (current_game_state)
+	{
+	case GameState::MainMenu:
+			window.draw(text_hello_world);
+		break;
+	case GameState::Playing:
+		break;
+	case GameState::Paused:
+		break;
+	case GameState::GameOver:
+		break;
+	default:
+		break;
+	}
+
+}
+
+InputHandler& Game::getInputHandler() const
+{
+	return *input_handler;
 }
