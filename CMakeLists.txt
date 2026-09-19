@@ -16,10 +16,18 @@ add_subdirectory(external)
 add_executable(game 
   "src/main.cpp"
 
-  "src/Game.cpp"
+  "src/enums/GameState.hpp"
+  "src/enums/CharacterAction.hpp"
   
+  "src/gui/button.cpp"
+  "src/gui/list.cpp"
+
   "src/LevelGen/LevelGen.cpp"
   "src/LevelGen/Level.cpp"
+
+  "src/Game.cpp"
+  "src/GameObject.cpp"
+  "src/InputHandler.cpp"
 )
 
 target_link_directories(game PRIVATE
