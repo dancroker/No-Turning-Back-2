@@ -10,12 +10,12 @@ public:
 	~Level();
 
 	void loadFile(std::string adress);
-	void generate();
+	void generate(int level_selected);
 	int getTile(int x, int y);
+	int getWidth();
+	int getHeight();
 
 private:
 	std::vector< std::vector<int> > level_layout;
-	std::string level_name;
-	int level_count = 1;
 
 };

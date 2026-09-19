@@ -54,19 +54,12 @@ void Level::loadFile(std::string adress)
     }
     // Close the file
     f.close();
-
-    for (const auto& row : level_layout) {
-        for (int tile : row) {
-            std::cout << tile << " ";
-        }
-        std::cout << std::endl;
-    }
 }
 
-void Level::generate() // Generate the level layout from a file
+void Level::generate(int level_selected) // Generate the level layout from a file
 {
     std::string adress = "./data/levels/Level_";
-    int level = level_count; //change this to be random when more levels!
+    int level = level_selected; 
     adress.append(std::to_string(level));
     adress.append(".txt");
     loadFile(adress);
@@ -76,5 +69,20 @@ void Level::generate() // Generate the level layout from a file
 
 int Level::getTile(int x, int y)
 {
-	return 0;
+	return level_layout[y][x];
+};
+int Level::getWidth()
+{
+	if (level_layout.size() > 0)
+	{
+		return level_layout[0].size();
+	}
+	else
+	{
+		return 0;
+	}
+};
+int Level::getHeight()
+{
+	return level_layout.size();
 };
