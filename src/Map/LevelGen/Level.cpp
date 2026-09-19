@@ -85,4 +85,8 @@ int Level::getWidth()
 int Level::getHeight()
 {
 	return level_layout.size();
-};
+}
+std::vector<std::vector<int>>& Level::getDesign()
+{
+    return level_layout;
+}

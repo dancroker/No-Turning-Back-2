@@ -22,12 +22,12 @@ add_subdirectory(external)
 # GAME
 add_executable(game 
 	src/main.cpp
- "src/LevelGen/LevelGen.cpp" "src/LevelGen/Level.cpp"
+ "src/Map/LevelGen/LevelGen.cpp" "src/Map/LevelGen/Level.cpp"
 	"src/main.cpp"
 
   "src/Game.cpp"
   "src/Game.hpp"
-)
+ "src/Map/GameMap.cpp" "src/Map/MapDraw/MapDraw.cpp")
 
 target_link_directories(game PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/src"

@@ -29,7 +29,7 @@ void LevelGen::generateLevels(int number_of_levels)
 
 void LevelGen::printMap()
 {
-	for (auto& level : map)
+	for (Level& level : map)
 	{
 		for (int y = 0; y < level.getHeight(); ++y) 
 		{
@@ -41,4 +41,8 @@ void LevelGen::printMap()
 		}
 		std::cout << std::endl;
 	}
-};
+}
+std::vector<std::vector<int>> LevelGen::getLevelLayout(int section)
+{
+	return map[section].getDesign();
+}

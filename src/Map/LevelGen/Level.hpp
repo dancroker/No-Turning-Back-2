@@ -14,6 +14,7 @@ public:
 	int getTile(int x, int y);
 	int getWidth();
 	int getHeight();
+	std::vector< std::vector<int>>& getDesign();
 
 private:
 	std::vector< std::vector<int> > level_layout;

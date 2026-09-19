@@ -4,6 +4,8 @@
 
 #include "Game.hpp"
 
+#include "Map/GameMap.hpp"
+
 int main()
 {
   // setup window
@@ -15,6 +17,11 @@ int main()
 
 	// setup game
 	Game game(window);
+
+	GameMap map;
+	map.generate();
+	map.draw_map();
+
   if (!game.init())
   {
 		printf("Failed to initialize game\n\0");
@@ -50,4 +57,5 @@ int main()
   }
   
   return EXIT_SUCCESS;
-}
+} 
+ 
