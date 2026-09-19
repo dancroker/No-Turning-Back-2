@@ -34,7 +34,7 @@ int MapDraw::calculate_tilemap_value(std::vector<std::vector<int>> layout, int t
 			{
 				tilemap_value += tile_value[count];
 			}
-			else if (layout[tile_y+y][tile_x+x] == tileType::GROUND)
+			else if (layout[tile_x+x][tile_y+y] == tileType::GROUND)
 			{
 				tilemap_value += tile_value[count];
 			}
