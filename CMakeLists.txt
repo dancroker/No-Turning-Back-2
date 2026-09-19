@@ -21,12 +21,12 @@ add_subdirectory(external)
 
 # GAME
 add_executable(game 
-	src/main.cpp
- "src/LevelGen/LevelGen.cpp" "src/LevelGen/Level.cpp"
-	"src/main.cpp"
+  "src/main.cpp"
 
   "src/Game.cpp"
-  "src/Game.hpp"
+  
+  "src/LevelGen/LevelGen.cpp"
+  "src/LevelGen/Level.cpp"
 )
 
 target_link_directories(game PRIVATE
