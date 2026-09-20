@@ -4,8 +4,6 @@
 
 #include "Game.hpp"
 
-#include "Map/GameMap.hpp"
-
 int main()
 {
   // setup window
@@ -16,11 +14,7 @@ int main()
   window.setIcon(window_icon);
 
 	// setup game
-	Game game(window);
-
-	GameMap map;
-	map.generate();
-	map.draw_map();
+	Game game(window); 
 
   if (!game.init())
   {

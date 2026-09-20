@@ -10,6 +10,7 @@ Game::~Game() {}
 bool Game::init()
 {
 	text_hello_world.setString("Hello, World!");
+	map.generate();
 
 	return true;
 }
@@ -24,4 +25,6 @@ void Game::render()
 	window.clear(sf::Color{ 100, 149, 237, 255 });
 
 	window.draw(text_hello_world);
+
+	map.draw_map(window);
 }

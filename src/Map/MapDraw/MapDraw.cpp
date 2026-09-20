@@ -6,7 +6,7 @@ MapDraw::MapDraw()
 MapDraw::~MapDraw()
 {
 }
-void MapDraw::draw(const std::vector<std::vector<int>>& layout)
+void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, float previous_level_size, float tile_size)
 {
 	for (int y = 0; y < layout.size(); ++y)
 	{
@@ -14,7 +14,15 @@ void MapDraw::draw(const std::vector<std::vector<int>>& layout)
 		{
 			if (layout[y][x] == tileType::GROUND) 
 			{
-				std::cout << "(" << calculate_tilemap_value(layout, x, y) << ")";
+				//std::cout << "(" << calculate_tilemap_value(layout, x, y) << ")";
+
+				//Basic tile drawing to screen, replace with actual tilemap!
+				sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
+				float tile_x = x * tile_size;
+				float tile_y = (y * tile_size)+previous_level_size;
+				tile.setPosition({ tile_x, tile_y });
+				tile.setFillColor(sf::Color::Green);
+				window.draw(tile);
 			}
 		}
 		std::cout << std::endl;
@@ -23,7 +31,9 @@ void MapDraw::draw(const std::vector<std::vector<int>>& layout)
 
 int MapDraw::calculate_tilemap_value(const std::vector<std::vector<int>>& layout, int tile_x, int tile_y)
 {
-	int tile_value[9] = {128,1,2,64,0,4,32,16,8};
+	int tile_value[9] = {tileDirection::UL,tileDirection::U,tileDirection::UR,
+		                 tileDirection::L,tileDirection::M,tileDirection::R,
+		                 tileDirection::DL,tileDirection::D,tileDirection::DR};
 	int tilemap_value = 0;
 	int count = 0;
 	for (int x = -1; x < 2; x++)

@@ -8,10 +8,12 @@ public:
 	~GameMap();
 
 	void generate();
-	void draw_map();
+	void draw_map(sf::RenderWindow& window);
 
 private:
 	LevelGen level;
 	MapDraw map_draw;
+
+	float tile_size = 32.0f;
 
 };
