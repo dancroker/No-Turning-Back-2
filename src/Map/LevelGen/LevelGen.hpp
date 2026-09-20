@@ -11,6 +11,7 @@ public:
 	void generateLevels(int number_of_levels);
 	void printMap();
 	std::vector< std::vector <int>>& getLevelLayout(int section);
+	int amountOfLevels();
 
 private:
 	std::vector<Level> map;

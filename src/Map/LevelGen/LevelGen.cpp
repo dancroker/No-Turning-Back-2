@@ -46,3 +46,8 @@ std::vector<std::vector<int>>& LevelGen::getLevelLayout(int section)
 {
 	return map[section].getDesign();
 }
+
+int LevelGen::amountOfLevels()
+{
+	return map.size();
+}

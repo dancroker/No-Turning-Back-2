@@ -15,6 +15,9 @@ void GameMap::generate()
 
 void GameMap::draw_map(sf::RenderWindow& window)
 {
-	map_draw.draw(level.getLevelLayout(2),window,0, tile_size);
-	map_draw.draw(level.getLevelLayout(1), window, (level.getLevelLayout(1).size()*tile_size), tile_size);
+	for (int i = 0; i < level.amountOfLevels(); i++)
+	{
+		map_draw.draw(level.getLevelLayout(i), window, (level.getLevelLayout(i).size() * tile_size)*i, tile_size);
+	}
 }
+
