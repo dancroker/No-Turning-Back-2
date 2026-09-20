@@ -10,7 +10,7 @@ public:
 
 	void generateLevels(int number_of_levels);
 	void printMap();
-	std::vector< std::vector <int>> getLevelLayout(int section);
+	std::vector< std::vector <int>>& getLevelLayout(int section);
 
 private:
 	std::vector<Level> map;

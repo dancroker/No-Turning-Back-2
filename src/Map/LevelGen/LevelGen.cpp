@@ -42,7 +42,7 @@ void LevelGen::printMap()
 		std::cout << std::endl;
 	}
 }
-std::vector<std::vector<int>> LevelGen::getLevelLayout(int section)
+std::vector<std::vector<int>>& LevelGen::getLevelLayout(int section)
 {
 	return map[section].getDesign();
 }

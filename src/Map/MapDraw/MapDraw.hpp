@@ -7,9 +7,9 @@ public:
 	MapDraw();
 	~MapDraw();
 
-	void draw(const std::vector<std::vector<int>> layout);
+	void draw(const std::vector<std::vector<int>>& layout);
 private:
-	int calculate_tilemap_value(std::vector<std::vector<int>> layout, int x, int y);
+	int calculate_tilemap_value(const std::vector<std::vector<int>>& layout, int x, int y);
 
 	enum tileDirection // U - UP, R - Right, D - Down, L - Left
 	{
