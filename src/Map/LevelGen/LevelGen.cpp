@@ -10,6 +10,17 @@ LevelGen::~LevelGen()
 };
 void LevelGen::generateLevels(int number_of_levels)
 {
+	int level_file_count = 0;
+	//directory_entry = data type for a file found in directory / folders
+	//directory_iterator = iterator that goes through each file in the directory / folder 
+	for(std::filesystem::directory_entry file : std::filesystem::directory_iterator("data/levels"))
+	{
+		//extention() = just the file type
+		if(file.path().extension() == ".txt")
+		{
+			level_file_count++;
+		}
+	}
 	if (number_of_levels <= 0)
 	{
 		std::cerr << "Error: number_of_levels must be greater than 0." << std::endl;
@@ -22,7 +33,8 @@ void LevelGen::generateLevels(int number_of_levels)
 	for (int i = 0; i < number_of_levels; ++i)
 	{
 		Level level;
-		level.generate(1);
+		int level_selected = (rand() % level_file_count)+1;
+		level.generate(level_selected);
 		map.push_back(level);
 	}
 };

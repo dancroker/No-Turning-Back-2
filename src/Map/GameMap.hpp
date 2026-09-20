@@ -7,7 +7,7 @@ public:
 	GameMap();
 	~GameMap();
 
-	void generate();
+	void generate(int level_count);
 	void draw_map(sf::RenderWindow& window);
 
 private:

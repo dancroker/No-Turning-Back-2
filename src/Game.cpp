@@ -10,7 +10,7 @@ Game::~Game() {}
 bool Game::init()
 {
 	text_hello_world.setString("Hello, World!");
-	map.generate();
+	map.generate(5); 
 
 	return true;
 }

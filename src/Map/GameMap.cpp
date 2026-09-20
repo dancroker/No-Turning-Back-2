@@ -8,9 +8,9 @@ GameMap::~GameMap()
 {
 }
 
-void GameMap::generate()
+void GameMap::generate(int level_count)
 {
-	level.generateLevels(3);
+	level.generateLevels(level_count);
 }
 
 void GameMap::draw_map(sf::RenderWindow& window)
