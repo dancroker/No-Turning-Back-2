@@ -35,9 +35,10 @@ target_link_directories(game PRIVATE
 )
 
 target_link_libraries(game PRIVATE
-  "sfml-graphics"
-  "sfml-window"
-  "sfml-system"
+  "SFML::Graphics"
+  "SFML::Window"
+  "SFML::System"
+  "SFML::Audio"
 )
 
 
