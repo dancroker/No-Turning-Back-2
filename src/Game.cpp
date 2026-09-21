@@ -89,3 +89,13 @@ InputHandler& Game::getInputHandler() const
 {
 	return *input_handler;
 }
+
+GameState Game::getCurrentGameState() const
+{
+	return current_game_state;
+}
+
+void Game::setCurrentGameState(GameState newGameState)
+{
+	current_game_state = newGameState;
+}

@@ -19,6 +19,9 @@ public:
 
 	InputHandler& getInputHandler() const;
 
+	GameState getCurrentGameState() const;
+	void setCurrentGameState(GameState newGameState);
+
 private:
 	sf::RenderWindow& window;
 
