@@ -13,7 +13,7 @@
       "variables": [
         {
           "name": "CMAKE_CXX_FLAGS_DEBUG",
-          "value": "/MDd /ZI /Ob0 /Od",
+          "value": "/MDd /Zi /Ob0 /Od",
           "type": "STRING"
         }
       ]
