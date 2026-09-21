@@ -16,6 +16,10 @@ public:
 	void removeCharacterAction(CharacterAction action);
 	bool checkCharacterAction(CharacterAction action);
 
+	void addKeysPressed(sf::Keyboard::Scancode key);
+	void removeKeysPressed(sf::Keyboard::Scancode key);
+	bool checkKeysPressed(sf::Keyboard::Scancode key);
+
 	void handleKeyPressed(const sf::Event::KeyPressed& keyPressed);
 	void handleKeyReleased(const sf::Event::KeyReleased& keyReleased);
 	void handleMouseButtonPressed(const bool& mouseButtonPressed);
@@ -26,4 +30,6 @@ public:
 private:
 
 	std::vector<CharacterAction> active_character_actions;
+	std::vector<sf::Keyboard::Scancode> keys_pressed;
+
 };

@@ -23,6 +23,8 @@ void Game::update()
 	switch (current_game_state)
 	{
 	case GameState::MainMenu:
+		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
+			current_game_state = GameState::Playing;
 		break;
 	case GameState::Playing:
 		// TODO: physics, movement, collision detection.
@@ -60,6 +62,10 @@ void Game::update()
 	else
 	{
 		std::cout << ".";
+	}
+	if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
+	{
+          std::cout << "[ENTER]";
 	}
 	std::cout << std::endl;
 }

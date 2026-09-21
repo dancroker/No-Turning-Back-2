@@ -31,8 +31,31 @@ bool InputHandler::checkCharacterAction(CharacterAction action)
 	return std::count(active_character_actions.begin(), active_character_actions.end(), action) > 0;
 }
 
+void InputHandler::addKeysPressed(sf::Keyboard::Scancode key)
+{
+	if (std::count(keys_pressed.begin(), keys_pressed.end(), key) == 0)
+	{
+		keys_pressed.push_back(key);
+	}
+}
+
+void InputHandler::removeKeysPressed(sf::Keyboard::Scancode key)
+{
+	 if (std::count(keys_pressed.begin(), keys_pressed.end(), key) > 0)
+	 {
+		 keys_pressed.erase(std::remove(keys_pressed.begin(), keys_pressed.end(), key), keys_pressed.end());
+	 }
+}
+
+bool InputHandler::checkKeysPressed(sf::Keyboard::Scancode key)
+{
+	return std::count(keys_pressed.begin(), keys_pressed.end(), key) > 0;
+}
+
 void InputHandler::handleKeyPressed(const sf::Event::KeyPressed& keyPressed)
 {
+	addKeysPressed(keyPressed.scancode);
+
 	switch(keyPressed.scancode)
 	{
 	case sf::Keyboard::Scancode::A:
@@ -51,6 +74,8 @@ void InputHandler::handleKeyPressed(const sf::Event::KeyPressed& keyPressed)
 
 void InputHandler::handleKeyReleased(const sf::Event::KeyReleased& keyReleased)
 {
+	removeKeysPressed(keyReleased.scancode);
+
 	switch (keyReleased.scancode)
 	{
 	case sf::Keyboard::Scancode::A:

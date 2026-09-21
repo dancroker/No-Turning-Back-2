@@ -31,4 +31,5 @@ private:
 
 	sf::Font font_IBM_VGA_8x16{ "./data/fonts/MxPlus_IBM_VGA_8x16.ttf" };
 	sf::Text text_hello_world{ font_IBM_VGA_8x16 };
+	sf::Text text_enter{ font_IBM_VGA_8x16 };
 };
