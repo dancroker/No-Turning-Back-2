@@ -21,9 +21,15 @@ int main()
     return EXIT_FAILURE;
   }
 
+  // Delta Time
+  sf::Clock clock;
+
   // main loop
   while (window.isOpen())
   {
+    sf::Time time{ clock.restart() };
+    float dt{ time.asSeconds() };
+
     // TODO: Mark my words, I *WILL* use window.handleEvents() and NO /RTC1 compiler bug will stand in my way!
     //       As soon as I figure out CMakePresets.json...
     while (const std::optional event = window.pollEvent())
@@ -50,7 +56,7 @@ int main()
       }
     }
 
-    game.update();
+    game.update(dt);
     game.render();
     window.display();
   }

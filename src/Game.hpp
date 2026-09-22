@@ -14,7 +14,7 @@ public:
 	~Game();
 
 	bool init();
-	void update();
+	void update(float dt);
 	void render();
 
 	InputHandler& getInputHandler() const;

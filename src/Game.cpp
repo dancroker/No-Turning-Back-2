@@ -18,7 +18,7 @@ bool Game::init()
 	return true;
 }
 
-void Game::update()
+void Game::update(float dt)
 {
 	switch (current_game_state)
 	{
