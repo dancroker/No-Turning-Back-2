@@ -87,6 +87,7 @@ void InputHandler::handleKeyReleased(const sf::Event::KeyReleased& keyReleased)
 	case sf::Keyboard::Scancode::W:
 		removeCharacterAction(CharacterAction::Jump);
 		break;
+	
 	default:
 		break;
 	}

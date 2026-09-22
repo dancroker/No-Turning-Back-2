@@ -28,6 +28,7 @@ add_executable(game
   "src/Game.cpp"
   "src/GameObject.cpp"
   "src/InputHandler.cpp"
+  "src/Vector2.cpp"
 )
 
 target_link_directories(game PRIVATE

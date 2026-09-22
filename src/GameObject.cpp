@@ -23,4 +23,16 @@ sf::Sprite* GameObject::getSprite()
 {
   return sprite;
 }
+Vector2 GameObject::getDirection()
+{
+  return direction;
+}
+void GameObject::setDirection(Vector2 dir)
+{
+  direction = dir;
+}
 
+void GameObject::setSpeed(int spee)
+{
+  speed = spee;
+}

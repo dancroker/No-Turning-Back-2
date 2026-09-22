@@ -16,7 +16,9 @@ bool Game::init()
 	text_hello_world.setString("Press ENTER to start");
 
 	player.initialiseSprite(player_texture, "./data/images/Bg_3.png");
-	//player.getSprite()->setPosition(sf::Vector2f(0.f, 0.f));
+	player.getSprite()->setPosition(sf::Vector2f(0.0f, 500.0f));
+	player.getSprite()->setScale(sf::Vector2f(0.5f, 0.5f));
+	player.setSpeed(200);
 	return true;
 }
 
@@ -48,6 +50,7 @@ void Game::update(float dt)
 	else if (input_handler->checkCharacterAction(CharacterAction::MoveRight) && input_handler->checkCharacterAction(CharacterAction::Jump))
 	{
 		std::cout << "/";
+
 	}
 	else if (input_handler->checkCharacterAction(CharacterAction::Jump))
 	{
@@ -59,6 +62,8 @@ void Game::update(float dt)
 	}
 	else if (input_handler->checkCharacterAction(CharacterAction::MoveRight))
 	{
+		player.setDirection(Vector2(1.0f, 0.0f));
+		player.getSprite()->move(sf::Vector2f(player.getDirection().x * player.getSpeed() * dt, 0));
 		std::cout << ">";
 	}
 	else
