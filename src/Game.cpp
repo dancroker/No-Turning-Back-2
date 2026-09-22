@@ -13,8 +13,10 @@ Game::~Game() {}
 
 bool Game::init()
 {
-	text_hello_world.setString("Hello, World!");
+	text_hello_world.setString("Press ENTER to start");
 
+	player.initialiseSprite(player_texture, "./data/images/Bg_3.png");
+	//player.getSprite()->setPosition(sf::Vector2f(0.f, 0.f));
 	return true;
 }
 
@@ -78,8 +80,13 @@ void Game::render()
 	{
 	case GameState::MainMenu:
 			window.draw(text_hello_world);
+			
 		break;
 	case GameState::Playing:
+			if (player.getSprite())
+			{
+				window.draw(*player.getSprite());
+			}
 		break;
 	case GameState::Paused:
 		break;
