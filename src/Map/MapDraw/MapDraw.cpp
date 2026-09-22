@@ -6,7 +6,7 @@ MapDraw::MapDraw()
 MapDraw::~MapDraw()
 {
 }
-void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, float previous_level_size, float tile_size)
+void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, float previous_level_size, float tile_size, float scroll_amount)
 {
 	for (int y = 0; y < layout.size(); ++y)
 	{
@@ -19,7 +19,7 @@ void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow
 				//Basic tile drawing to screen, replace with actual tilemap!
 				sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
 				float tile_x = x * tile_size;
-				float tile_y = (y * tile_size)+previous_level_size;
+				float tile_y = (y * tile_size)+previous_level_size+scroll_amount;
 				tile.setPosition({ tile_x, tile_y });
 				tile.setFillColor(sf::Color::Green);
 				window.draw(tile);

@@ -18,6 +18,8 @@ bool Game::init()
 void Game::update()
 {
 	// TODO: add a switch with enum for gamestate
+
+	map.update();
 }
 
 void Game::render()

@@ -21,7 +21,7 @@ int main()
 		printf("Failed to initialize game\n\0");
 		return EXIT_FAILURE;
   }
-
+   
 	// main loop
   while (window.isOpen())
   {
