@@ -10,34 +10,22 @@ LevelGen::~LevelGen()
 };
 void LevelGen::generateLevels(int number_of_levels)
 {
-	std::vector<std::filesystem::path> files;
-	//directory_entry = data type for a file found in directory / folders
-	//directory_iterator = iterator that goes through each file in the directory / folder 
-	for(std::filesystem::directory_entry file : std::filesystem::directory_iterator("data/levels"))
-	{
-		//extention() = just the file type
-		if(file.path().extension() == ".txt")
-		{
-			files.push_back(file.path());
-
-		}
-	}
-	if (number_of_levels <= 0)
-	{
-		std::cerr << "Error: number_of_levels must be greater than 0." << std::endl;
-		return;
-	}
 	if (map.size() > 0)
 	{
 		map.clear();
 	}
-	for (int i = 0; i < number_of_levels; ++i)
+	if (number_of_levels < 3)
 	{
-		Level level;
-		int level_selected = (rand() % files.size());
-		level.generate(files[level_selected].string());
-		map.push_back(level);
+		std::cerr << "Error: number_of_levels must be at least 3." << std::endl;
+		return;
 	}
+	else
+	{
+		generateSectionOfLevel(1, end_level);
+		generateSectionOfLevel(number_of_levels - 2, middle_level);
+		generateSectionOfLevel(1, start_level);
+	}
+	
 };
 
 void LevelGen::printMap()
@@ -64,3 +52,31 @@ int LevelGen::amountOfLevels()
 {
 	return map.size();
 }
+
+void LevelGen::generateSectionOfLevel(int number_of_levels, std::filesystem::path file_path)
+{
+	std::vector<std::filesystem::path> files;
+	//directory_entry = data type for a file found in directory / folders
+	//directory_iterator = iterator that goes through each file in the directory / folder 
+	for (std::filesystem::directory_entry file : std::filesystem::directory_iterator(file_path))
+	{
+		//extention() = just the file type
+		if (file.path().extension() == ".txt")
+		{
+			files.push_back(file.path());
+
+		}
+	}
+	if (number_of_levels <= 0)
+	{
+		std::cerr << "Error: number_of_levels must be greater than 0." << std::endl;
+		return;
+	}
+	for (int i = 0; i < number_of_levels; ++i)
+	{
+		Level level;
+		int level_selected = (rand() % files.size());
+		level.generate(files[level_selected].string());
+		map.push_back(level);
+	}
+}	

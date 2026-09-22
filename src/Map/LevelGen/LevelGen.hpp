@@ -16,4 +16,8 @@ public:
 
 private:
 	std::vector<Level> map;
+	std::filesystem::path start_level = "data/levels/Start";
+	std::filesystem::path middle_level = "data/levels/Middle";
+	std::filesystem::path end_level = "data/levels/End";
+	void generateSectionOfLevel(int number_of_levels, std::filesystem::path file_path);
 };
