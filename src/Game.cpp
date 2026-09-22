@@ -19,6 +19,8 @@ bool Game::init()
 	player.getSprite()->setPosition(sf::Vector2f(0.0f, 500.0f));
 	player.getSprite()->setScale(sf::Vector2f(0.5f, 0.5f));
 	player.setSpeed(200);
+	jumpHeight = 200;
+    jumpStartY = player.getSprite()->getPosition().y;
 	return true;
 }
 
@@ -54,6 +56,11 @@ void Game::update(float dt)
 	}
 	else if (input_handler->checkCharacterAction(CharacterAction::Jump))
 	{
+		if(onGround){
+			jumpStartY = player.getSprite()->getPosition().y; 
+        	onGround = false;
+        	velocity.y = -jumpSpeed;
+		}
 		std::cout << "^";
 	}
 	else if (input_handler->checkCharacterAction(CharacterAction::MoveLeft))
@@ -75,6 +82,19 @@ void Game::update(float dt)
           std::cout << "[ENTER]";
 	}
 	std::cout << std::endl;
+	//allowing to jump
+	velocity.y += gravity * dt;
+    player.getSprite()->move(sf::Vector2f(0, velocity.y));
+    if(player.getSprite()->getPosition().y < jumpStartY - jumpHeight && velocity.y < 0 ) {
+        velocity.y = 0;   
+    }
+
+    const sf::FloatRect spriteBounds = player.getSprite()->getGlobalBounds();
+    if(player.getSprite()->getPosition().y + spriteBounds.size.y >= groundHeight){
+        player.getSprite()->setPosition(sf::Vector2f(player.getSprite()->getPosition().x, groundHeight - spriteBounds.size.y));
+        velocity.y = 0;
+        onGround = true;
+      }  
 }
 
 void Game::render()
