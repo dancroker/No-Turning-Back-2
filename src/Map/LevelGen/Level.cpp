@@ -56,12 +56,12 @@ void Level::loadFile(std::string adress)
     f.close();
 }
 
-void Level::generate(int level_selected) // Generate the level layout from a file
+void Level::generate(std::string adress) // Generate the level layout from a file
 {
-    std::string adress = "./data/levels/Level_";
-    int level = level_selected; 
-    adress.append(std::to_string(level));
-    adress.append(".txt");
+    //std::string adress = "./data/levels/Level_";
+    //int level = level_selected; 
+    //adress.append(std::to_string(level));
+    //adress.append(".txt");
     loadFile(adress);
 	
 
@@ -85,4 +85,18 @@ int Level::getWidth()
 int Level::getHeight()
 {
 	return level_layout.size();
-};
+}
+void Level::clearLevel(int section)
+{
+	for (int y = 0; y < level_layout.size(); ++y)
+	{
+		for (int x = 0; x < level_layout[y].size(); ++x)
+		{
+			level_layout[y][x] = 0;
+		}
+	}
+}
+std::vector<std::vector<int>>& Level::getDesign()
+{
+    return level_layout;
+}

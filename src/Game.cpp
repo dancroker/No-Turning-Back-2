@@ -14,6 +14,9 @@ Game::~Game() {}
 bool Game::init()
 {
 	text_hello_world.setString("Hello, World!");
+	map.generate(4); 
+	map.unlockHiddenLevelSection(2);
+	map.printMap();
 
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
