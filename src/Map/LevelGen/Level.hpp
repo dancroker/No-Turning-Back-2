@@ -14,6 +14,7 @@ public:
 	int getTile(int x, int y);
 	int getWidth();
 	int getHeight();
+	void clearLevel(int section);
 	std::vector< std::vector<int>>& getDesign();
 
 private:

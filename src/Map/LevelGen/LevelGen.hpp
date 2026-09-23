@@ -15,6 +15,7 @@ public:
 	void printHiddenMap();
 	std::vector< std::vector <int>>& getLevelLayout(int section, bool hidden);
 	int amountOfLevels();
+	void unlockHiddenLevelSection(int section);
 
 private:
 	std::vector<Level> map;

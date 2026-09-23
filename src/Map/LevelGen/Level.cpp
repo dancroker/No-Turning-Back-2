@@ -86,6 +86,16 @@ int Level::getHeight()
 {
 	return level_layout.size();
 }
+void Level::clearLevel(int section)
+{
+	for (int y = 0; y < level_layout.size(); ++y)
+	{
+		for (int x = 0; x < level_layout[y].size(); ++x)
+		{
+			level_layout[y][x] = 0;
+		}
+	}
+}
 std::vector<std::vector<int>>& Level::getDesign()
 {
     return level_layout;

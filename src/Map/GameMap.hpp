@@ -10,6 +10,8 @@ public:
 	void generate(int level_count);
 	void draw_map(sf::RenderWindow& window);
 	void update();
+	void printMap();
+	void unlockHiddenLevelSection(int section);
 
 private:
 	LevelGen level;

@@ -10,7 +10,9 @@ Game::~Game() {}
 bool Game::init()
 {
 	text_hello_world.setString("Hello, World!");
-	map.generate(5); 
+	map.generate(4); 
+	map.unlockHiddenLevelSection(2);
+	map.printMap();
 
 	return true;
 }
@@ -19,7 +21,7 @@ void Game::update()
 {
 	// TODO: add a switch with enum for gamestate
 
-	map.update();
+	//map.update();
 }
 
 void Game::render()

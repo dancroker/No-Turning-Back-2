@@ -22,6 +22,7 @@ void LevelGen::generateLevels(int number_of_levels)
 	else
 	{
 		generateSectionOfLevel(1, end_level);
+
 		generateSectionOfLevel(number_of_levels - 2, middle_level);
 		generateSectionOfLevel(1, start_level);
 	}
@@ -46,9 +47,12 @@ void LevelGen::generateHiddenLevels(std::string level_name)
 			Level level;
 			level.generate(files[i].string());
 			hidden_map.push_back(level);
-			std::cout << "Hidden level generated: " << files[i].stem().string() << std::endl;
+			return;
 		}
 	}
+		Level level;
+		level.generate("data/levels/MiddleHidden/EMPTY.txt");
+		hidden_map.push_back(level);
 }
 
 void LevelGen::printMap()
@@ -94,6 +98,19 @@ std::vector<std::vector<int>>& LevelGen::getLevelLayout(int section, bool hidden
 int LevelGen::amountOfLevels()
 {
 	return map.size();
+}
+
+void LevelGen::unlockHiddenLevelSection(int section)
+{
+	if (hidden_map.size() > 0)
+	{
+		std::cout << "Unlocking hidden level section: " << section << std::endl;
+		hidden_map[section].clearLevel(section);
+	}
+	else
+	{
+		std::cerr << "Error: No hidden levels to unlock." << std::endl;
+	}
 }
 
 void LevelGen::generateSectionOfLevel(int number_of_levels, std::filesystem::path file_path)
