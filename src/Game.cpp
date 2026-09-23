@@ -15,8 +15,6 @@ bool Game::init()
 {
 	text_hello_world.setString("Hello, World!");
 	map.generate(4); 
-	map.unlockHiddenLevelSection(2);
-	map.printMap();
 
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
@@ -84,6 +82,7 @@ void Game::render()
 	case GameState::Playing:
 		window.draw(sprite_sfml_logo);
 		window.draw(player.getHitbox());
+		map.draw_map(window);
 		break;
 	case GameState::Paused:
 		break;

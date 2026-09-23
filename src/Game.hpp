@@ -8,6 +8,7 @@
 #include "InputHandler.hpp"
 #include "GameObjects/GameObject.hpp"
 #include "GameObjects/PlayerCharacter.hpp"
+#include "Map/GameMap.hpp"
 
 class Game
 {
@@ -44,6 +45,8 @@ private:
 	PlayerCharacter player{};
 	
 	float gravity{ 10.f };
+
+	GameMap map;
 
 	//Player
 	//GameObject player;

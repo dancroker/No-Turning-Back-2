@@ -26,8 +26,10 @@ add_executable(game
   "src/gui/button.cpp"
   "src/gui/list.cpp"
 
-  "src/LevelGen/LevelGen.cpp"
-  "src/LevelGen/Level.cpp"
+  "src/Map/LevelGen/LevelGen.cpp"
+  "src/Map/LevelGen/Level.cpp"
+  "src/Map/MapDraw/MapDraw.cpp"
+  "src/Map/GameMap.cpp"
 
   "src/Camera.cpp"
   "src/Game.cpp"
