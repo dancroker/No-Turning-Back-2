@@ -13,6 +13,7 @@ Game::~Game() {}
 
 bool Game::init()
 {
+
 	text_hello_world.setString("Hello, World!");
 	map.generate(4); 
 
@@ -31,8 +32,28 @@ void Game::update(float dt)
 	switch (current_game_state)
 	{
 	case GameState::MainMenu:
+		//start
+		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::W))
+		{
+
+		
+		}
+
+
+
+
+
+
+
+
+
+
 		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
 			current_game_state = GameState::Playing;
+
+
+
+		//end
 		break;
 	case GameState::Playing:
 		if (!input_handler->getActiveCharacterActions().empty())
@@ -76,8 +97,11 @@ void Game::render()
 	switch (current_game_state)
 	{
 	case GameState::MainMenu:
-		window.draw(text_hello_world);
-		window.draw(text_enter);
+		//start
+
+
+
+		//end
 		break;
 	case GameState::Playing:
 		window.draw(sprite_sfml_logo);
