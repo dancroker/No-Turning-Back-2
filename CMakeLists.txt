@@ -19,16 +19,19 @@ add_executable(game
   "src/enums/GameState.hpp"
   "src/enums/CharacterAction.hpp"
   
+  "src/GameObjects/GameObject.cpp"
+  "src/GameObjects/PlayerCharacter.cpp"
+
+
   "src/gui/button.cpp"
   "src/gui/list.cpp"
 
   "src/LevelGen/LevelGen.cpp"
   "src/LevelGen/Level.cpp"
 
+  "src/Camera.cpp"
   "src/Game.cpp"
-  "src/GameObject.cpp"
   "src/InputHandler.cpp"
-  "src/Vector2.cpp"
 )
 
 target_link_directories(game PRIVATE
