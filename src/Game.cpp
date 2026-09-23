@@ -29,4 +29,4 @@ void Game::render()
 	window.draw(text_hello_world);
 
 	map.draw_map(window);
-}
+} 

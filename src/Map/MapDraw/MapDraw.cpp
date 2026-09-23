@@ -6,23 +6,38 @@ MapDraw::MapDraw()
 MapDraw::~MapDraw()
 {
 }
-void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, float previous_level_size, float tile_size, float scroll_amount)
+void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, float previous_level_size, float tile_size, float scroll_amount, bool draw_hidden)
 {
 	for (int y = 0; y < layout.size(); ++y)
 	{
 		for (int x = 0; x < layout[y].size(); ++x)
 		{
-			if (layout[y][x] == tileType::GROUND) 
+			if (draw_hidden)
 			{
-				//std::cout << "(" << calculate_tilemap_value(layout, x, y) << ")";
+				if (layout[y][x] == tileType::HIDDEN)
+				{
+					sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
+					float tile_x = x * tile_size;
+					float tile_y = (y * tile_size) + previous_level_size + scroll_amount;
+					tile.setPosition({ tile_x, tile_y });
+					tile.setFillColor(sf::Color::Red);
+					window.draw(tile);
+				}
+			}
+			else 
+			{
+				if (layout[y][x] == tileType::GROUND)
+				{
+					//std::cout << "(" << calculate_tilemap_value(layout, x, y) << ")";
 
-				//Basic tile drawing to screen, replace with actual tilemap!
-				sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
-				float tile_x = x * tile_size;
-				float tile_y = (y * tile_size)+previous_level_size+scroll_amount;
-				tile.setPosition({ tile_x, tile_y });
-				tile.setFillColor(sf::Color::Green);
-				window.draw(tile);
+					//Basic tile drawing to screen, replace with actual tilemap!
+					sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
+					float tile_x = x * tile_size;
+					float tile_y = (y * tile_size) + previous_level_size + scroll_amount;
+					tile.setPosition({ tile_x, tile_y });
+					tile.setFillColor(sf::Color::Green);
+					window.draw(tile);
+				}
 			}
 		}
 		std::cout << std::endl;

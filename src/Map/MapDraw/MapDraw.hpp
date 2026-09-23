@@ -9,7 +9,8 @@ public:
 	MapDraw();
 	~MapDraw();
 
-	void draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, float previous_level_size, float tile_size, float scroll_amount);
+	void draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow& window, 
+		      float previous_level_size, float tile_size, float scroll_amount, bool draw_hidden);
 
 private:
 	int calculate_tilemap_value(const std::vector<std::vector<int>>& layout, int x, int y);
@@ -34,6 +35,7 @@ private:
 	{
 		AIR,
 		GROUND,
+		HIDDEN = 1,
 	};
 
 
