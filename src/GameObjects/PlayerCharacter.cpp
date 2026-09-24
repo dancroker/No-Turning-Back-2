@@ -18,6 +18,7 @@ void PlayerCharacter::moveRight()
 {
 	if (velocity.x < speed)
 		velocity.x += speed / 2;
+	
 }
 
 void PlayerCharacter::jump()
