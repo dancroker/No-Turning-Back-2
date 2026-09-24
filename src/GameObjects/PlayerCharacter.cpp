@@ -37,6 +37,8 @@ void PlayerCharacter::jump()
 	{
 		grounded = false;
 		velocity.y = -jump_power;
+		sound.loadPlaySound("data/jump.wav");
+
 	}
 }
 

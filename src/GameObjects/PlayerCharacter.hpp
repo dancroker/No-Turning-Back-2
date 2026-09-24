@@ -6,6 +6,10 @@
 
 #include "GameObject.hpp"
 
+#include <SFML/Audio.hpp>
+
+#include "../OwnSound.hpp"
+
 class PlayerCharacter : public GameObject
 {
 public:
@@ -27,6 +31,9 @@ public:
 	void setSpeed(float new_speed);
 	float getJumpPower() const;
 	void setJumpPower(float new_jump_power);
+	OwnSound sound;
+
+
 
 private:
 	std::unique_ptr<sf::View> player_camera{ std::make_unique<sf::View>() };
