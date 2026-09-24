@@ -30,10 +30,7 @@ void GameMap::draw_map(sf::RenderWindow& window)
 
 void GameMap::update()
 {
-	if (max_scroll_amount > scroll_amount)
-	{
-		scroll_amount += scroll_speed;
-	}
+		scroll_amount -= scroll_speed;
 }
 
 void GameMap::printMap()

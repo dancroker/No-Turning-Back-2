@@ -9,7 +9,7 @@ opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data
 , opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0)
 {
 	srand(time(NULL));
-	float scale_factor = 0.7f; // Adjust this value to scale the animation
+	float scale_factor = 0.7f;
 	opening_animation_1.setScale(scale_factor, scale_factor);
 	opening_animation_2.setScale(scale_factor, scale_factor);
 	opening_animation_3.setScale(scale_factor, scale_factor);
@@ -23,7 +23,7 @@ bool Game::init()
 	music.loadPlayMusic(); // Loading the music goes here instead of in the render loop.
 
 	text_hello_world.setString("Hello, World!");
-	map.generate(4); 
+	map.generate(3);
 
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
@@ -45,8 +45,9 @@ void Game::update(float dt)
 	case GameState::MainMenu:
 		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
 			current_game_state = GameState::Playing;
-		break;
+		break; 
 	case GameState::Playing:
+		map.update(); 
 		if (!input_handler->getActiveCharacterActions().empty())
 		{
 			for (CharacterAction action : input_handler->getActiveCharacterActions())
@@ -119,7 +120,7 @@ InputHandler& Game::getInputHandler() const
 
 GameState Game::getCurrentGameState() const
 {
-	return current_game_state;
+	return current_game_state;   
 }
 
 void Game::setCurrentGameState(GameState newGameState)
