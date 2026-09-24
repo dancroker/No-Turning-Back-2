@@ -14,7 +14,7 @@ AnimationManager::AnimationManager(sf::String texture_path, int frame_width, int
 
 AnimationManager::~AnimationManager() {} 
 
-sf::Sprite& AnimationManager::play()
+int& AnimationManager::play()
 {
 	if (animation_clock.getElapsedTime().asSeconds() >= time_per_frame)
 	{
@@ -32,7 +32,7 @@ sf::Sprite& AnimationManager::play()
 		animation_sprite.setTextureRect(sf::IntRect({ x, y }, { frame_width, frame_height }));
 		animation_clock.restart();
 	}
-	return animation_sprite;
+	return loop_count;
 }
 
 void AnimationManager::setTextureRect(float x, float y)

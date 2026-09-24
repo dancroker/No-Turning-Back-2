@@ -26,6 +26,8 @@ public:
 
 	GameState getCurrentGameState() const;
 	void setCurrentGameState(GameState newGameState);
+
+	void playOpeningAnimation();
 	
 
 private:
