@@ -8,6 +8,7 @@ class PlayerCharacter : public GameObject
 {
 public:
 
+	void init() override;
 	void update() override;
 
 	void moveLeft();

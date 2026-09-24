@@ -1,8 +1,13 @@
 #include "PlayerCharacter.hpp"
 
+void PlayerCharacter::init()
+{
+}
+
 void PlayerCharacter::update()
 {
 	hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
+	syncSpriteWithHitbox();
 
 	velocity.x = (velocity.x >= -0.1 && velocity.x <= 0.1) ? 0 : velocity.x / 2;
 }

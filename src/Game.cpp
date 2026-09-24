@@ -21,8 +21,9 @@ bool Game::init()
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
 
+	player.getSprite().setTexture(texture_player);
 	player.getHitbox().setFillColor(sf::Color::Magenta);
-	player.getHitbox().setSize(sf::Vector2f{ 50.f, 50.f });
+	player.getHitbox().setSize(sf::Vector2f{ 256.f, 256.f });
 	player.setSpeed(20.f);
 
 	return true;
@@ -89,6 +90,7 @@ void Game::render()
 	case GameState::Playing:
 		window.draw(sprite_sfml_logo);
 		window.draw(player.getHitbox());
+		window.draw(player.getSprite());
 		map.draw_map(window);
 		break;
 	case GameState::Paused:
