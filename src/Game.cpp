@@ -20,6 +20,8 @@ Game::~Game() {}
 
 bool Game::init()
 {
+	music.loadPlayMusic(); // Loading the music goes here instead of in the render loop.
+
 	text_hello_world.setString("Hello, World!");
 	map.generate(4); 
 
@@ -98,7 +100,6 @@ void Game::render()
 		window.draw(player.getHitbox());
 		window.draw(player.getSprite());
 		map.draw_map(window);
-		music.loadPlayMusic();
 		break;
 	case GameState::Paused:
 		break;
