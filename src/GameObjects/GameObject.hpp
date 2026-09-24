@@ -23,6 +23,7 @@ public:
 
 	sf::Vector2f getVelocity() const;
 	void setVelocity(const sf::Vector2f& new_velocity);
+	void setTexture(const sf::Texture& new_texture);
 
 protected:
 	sf::Texture texture{ "./data/images/sfml-icon-small.png" };

@@ -8,6 +8,7 @@
 #include "InputHandler.hpp"
 #include "GameObjects/GameObject.hpp"
 #include "GameObjects/PlayerCharacter.hpp"
+#include "GameObjects/Star.hpp"
 #include "Map/GameMap.hpp"
 #include "Menus/MainMenuScreen.h"
 #include "AnimationManager.hpp"
@@ -47,10 +48,13 @@ private:
 	sf::Texture texture_sfml_icon{ "./data/images/sfml-icon-small.png" };
 	sf::Texture texture_sfml_logo{ "./data/images/sfml-logo.png" };
 	sf::Texture texture_player{ "./data/images/sfml-icon-small.png" };
+	sf::Texture texture_star{ "./data/images/Colectable.png" };
 	
 	sf::Sprite sprite_sfml_logo{ texture_sfml_logo }; // placeholder reference for movement
+
 	PlayerCharacter player{};
-	
+	Star star{};
+
 	float gravity{ 10.f };
 
 	GameMap map;

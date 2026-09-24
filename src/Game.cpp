@@ -36,6 +36,10 @@ bool Game::init()
 	player.getHitbox().setSize(sf::Vector2f{ 60.f, 60.f });
 	player.getSprite().setScale(sf::Vector2f{ 0.234f, 0.234f });
 	player.setSpeed(20.f);
+
+	star.init(texture_star);
+	star.getHitbox().setFillColor(sf::Color::Red);
+	star.getHitbox().setSize(sf::Vector2f{ 60.f, 60.f });
 	
 	main_menu_screen.init();
 
@@ -144,8 +148,10 @@ void Game::render()
 	case GameState::Playing:
 		window.setView(player.getPlayerCamera());
 		window.draw(sprite_sfml_logo);
-		window.draw(player.getHitbox());
+		window.draw(player.getHitbox()); // remove these eventually
 		window.draw(player.getSprite());
+		window.draw(star.getHitbox()); // remove these eventually
+		window.draw(star.getSprite());
 		map.draw_map(window);
 		break;
 	case GameState::Paused:
@@ -177,7 +183,7 @@ InputHandler& Game::getInputHandler() const
 
 GameState Game::getCurrentGameState() const
 {
-	return current_game_state;   
+	return current_game_state;
 }
 
 void Game::setCurrentGameState(GameState newGameState)

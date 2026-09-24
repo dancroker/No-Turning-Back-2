@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "../../GameObjects/Star.hpp"
 class Level
 {
 public:
@@ -17,7 +18,10 @@ public:
 	void clearLevel(int section);
 	std::vector< std::vector<int>>& getDesign();
 
+	Star& getStar() { return star; }
+
 private:
 	std::vector< std::vector<int> > level_layout;
 
+	Star star;
 };

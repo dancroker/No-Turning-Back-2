@@ -39,3 +39,8 @@ void GameObject::setVelocity(const sf::Vector2f& new_velocity)
 	velocity = new_velocity;
 }
 
+void GameObject::setTexture(const sf::Texture& new_texture)
+{
+	texture = new_texture;
+}
+
