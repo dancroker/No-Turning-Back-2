@@ -6,9 +6,17 @@ GameObject::GameObject() {}
 
 GameObject::~GameObject() {}
 
+void GameObject::init()
+{
+}
+
 void GameObject::update()
 {
-	
+}
+
+void GameObject::syncSpriteWithHitbox()
+{
+	sprite->setPosition(sf::Vector2f{hitbox->getPosition().x + sprite_offset.x, hitbox->getPosition().y + sprite_offset.y});
 }
 
 sf::RectangleShape& GameObject::getHitbox() const

@@ -10,6 +10,8 @@
 #include "GameObjects/PlayerCharacter.hpp"
 #include "Map/GameMap.hpp"
 #include "Menus/MainMenuScreen.h"
+#include "AnimationManager.hpp"
+#include "OwnSound.hpp"
 
 class Game
 {
@@ -27,6 +29,8 @@ public:
 
 	GameState getCurrentGameState() const;
 	void setCurrentGameState(GameState newGameState);
+
+	void playOpeningAnimation();
 	
 
 private:
@@ -50,6 +54,13 @@ private:
 	float gravity{ 10.f };
 
 	GameMap map;
+
+	AnimationManager opening_animation_1;
+	AnimationManager opening_animation_2;
+	AnimationManager opening_animation_3;
+	AnimationManager opening_animation_4;
+
+	OwnSound music;
 
 	//Player
 	//GameObject player;
