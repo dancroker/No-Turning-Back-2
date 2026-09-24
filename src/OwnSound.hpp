@@ -10,6 +10,7 @@ class OwnSound {
 	public:
 		OwnSound();
 		~OwnSound();
+
 		bool loadPlaySound(std::string filename);
 		bool loadPlayMusic();
 
@@ -21,9 +22,15 @@ class OwnSound {
 
 
 	private:
-	std::unique_ptr<sf::Sound> sound;
+
+	sf::Sound sound;
 	sf::SoundBuffer buffer;
-	std::unique_ptr<sf::Music> music;
+	sf::Music music;
+
+
+	// std::unique_ptr<sf::Sound> sound;
+	// sf::SoundBuffer buffer;
+	// std::unique_ptr<sf::Music> music;
 
 
 

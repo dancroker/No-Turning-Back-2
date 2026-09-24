@@ -34,7 +34,6 @@ add_executable(game
  "src/AnimationManager.cpp"
  "src/OwnSound.cpp")
 
-)
 
 target_link_directories(game PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/src"
