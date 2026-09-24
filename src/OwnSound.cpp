@@ -30,14 +30,14 @@ bool OwnSound::loadPlaySound(std::string filename) {
 
 //for looping music
 bool OwnSound::loadPlayMusic() {
-
-	if (!music.openFromFile("data/mainLoop.wav")) {
+	sf::Music music;
+	if (!music.openFromFile("data/music/menu_music.wav")) {
 		return false;
 	}
 	//else { return true; }  <-- this returns the function before anything else can be done
 	
 	music.play();  // <-- this will not run if the function returns too early
-	music.setLoopPoints({ sf::seconds(2), sf::seconds(86) });
+	music.setLooping(true);
 	return true; // successful return goes on the end
 }
 
