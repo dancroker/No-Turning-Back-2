@@ -40,7 +40,7 @@ void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow
 				}
 			}
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 }
 
