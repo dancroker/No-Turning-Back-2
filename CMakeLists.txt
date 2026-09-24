@@ -34,7 +34,7 @@ add_executable(game
   "src/Camera.cpp"
   "src/Game.cpp"
   "src/InputHandler.cpp"
-)
+ "src/AnimationManager.cpp")
 
 target_link_directories(game PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/src"
