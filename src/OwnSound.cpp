@@ -4,13 +4,14 @@
 
 
 OwnSound::OwnSound() {
-
+	//sf::Sound sound(sf::SoundBuffer buffer);
 }
 OwnSound::~OwnSound() {
 }
 
 bool OwnSound::loadPlaySound(std::string filename) {
 	sf::SoundBuffer buffer;
+	sf::Sound sound(buffer);
 	if (!buffer.loadFromFile(filename)) {
 		std::cout << "Failed to load sound file: " << filename << std::endl;
 		return false;
@@ -20,12 +21,13 @@ bool OwnSound::loadPlaySound(std::string filename) {
 	return true;
 }
 
-bool OwnSound::loadPlayMusic(std::string filename) {
+bool OwnSound::loadPlayMusic() {
 	sf::Music music;
-	if (!music.openFromFile(filename)) {
+	if (!music.openFromFile("data/mainLoop.wav")) {
 		return false;
 	}
+	else { return true; }
 	music.play();
-	music.setLooping();
+	music.setLoopPoints({ sf::seconds(9), sf::seconds(86) });
 }
 

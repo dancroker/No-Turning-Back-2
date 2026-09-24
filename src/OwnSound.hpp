@@ -1,11 +1,17 @@
+#pragma once
+
+#include <string>
+#include <memory>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 class OwnSound {
 
-public:
-	OwnSound();
-	~OwnSound();
-	bool loadPlaySound(std::string filename);
+	public:
+		OwnSound();
+		~OwnSound();
+		bool loadPlaySound(std::string filename);
+		bool loadPlayMusic();
 
 
 
@@ -13,9 +19,11 @@ public:
 
 
 
-private:
+
+	private:
+	std::unique_ptr<sf::Sound> sound;
 	sf::SoundBuffer buffer;
-	sf::Sound sound;
+	std::unique_ptr<sf::Music> music;
 
 
 
