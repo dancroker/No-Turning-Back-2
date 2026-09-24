@@ -52,7 +52,7 @@ void Game::update(float dt)
 	case GameState::MainMenu:
 
 		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
-			current_game_state = GameState::Playing;
+			current_game_state = GameState::IntroCutscene;
 
 		if (!s_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::S))
 		{
@@ -91,7 +91,7 @@ void Game::update(float dt)
 
 		break;
 	case GameState::Playing:
-		map.update(); 
+		map.update(); //--------------------------------------------------------------
 		if (!input_handler->getActiveCharacterActions().empty())
 		{
 			for (CharacterAction action : input_handler->getActiveCharacterActions())
@@ -137,9 +137,10 @@ void Game::render()
 		main_menu_screen.render(window);
 		window.draw(text_hello_world);
 		window.draw(text_enter);
-
-		playOpeningAnimation();
 		
+		break;
+	case GameState::IntroCutscene:
+		playOpeningAnimation();
 		break;
 	case GameState::Playing:
 		window.setView(player.getPlayerCamera());

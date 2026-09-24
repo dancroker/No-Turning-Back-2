@@ -30,10 +30,13 @@ add_executable(game
   "src/Camera.cpp"
   "src/Game.cpp"
   "src/InputHandler.cpp"
-  "src/Menus/MenuCreator.h" "src/Menus/MenuCreator.cpp" "src/Menus/MainMenuScreen.h" "src/Menus/MainMenuScreen.cpp"
+  "src/Menus/MenuCreator.h" 
+  "src/Menus/MenuCreator.cpp" 
+  "src/Menus/MainMenuScreen.h" 
+  "src/Menus/MainMenuScreen.cpp"
  "src/AnimationManager.cpp"
- "src/OwnSound.cpp")
-
+ "src/OwnSound.cpp"
+)
 
 target_link_directories(game PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/src"
