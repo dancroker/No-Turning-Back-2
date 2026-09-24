@@ -9,6 +9,7 @@
 #include "GameObjects/GameObject.hpp"
 #include "GameObjects/PlayerCharacter.hpp"
 #include "Map/GameMap.hpp"
+#include "Menus/MainMenuScreen.h"
 
 class Game
 {
@@ -19,6 +20,8 @@ public:
 	bool init();
 	void update(float dt);
 	void render();
+	int keyPressed(sf::Event event, sf::RenderWindow& window, InputHandler& input_handler);
+	void keyReleased(sf::Event event);
 
 	InputHandler& getInputHandler() const;
 
@@ -59,5 +62,13 @@ private:
 	//float gravity   = 10;
 	//float groundHeight = window.getSize().y - 100;
 	//Vector2 velocity = { 0.0f, 0.0f };
+
+	bool s_key_pressed{ false };
+	bool w_key_pressed{ false };
+	
+
+
+
+	MainMenuScreen main_menu_screen;
 
 };
