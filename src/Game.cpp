@@ -4,7 +4,9 @@
 
 #include "enums/GameState.hpp"
 
-Game::Game(sf::RenderWindow& game_window) : window(game_window)
+Game::Game(sf::RenderWindow& game_window) : window(game_window), 
+opening_animation_1("data/Frame1.png",1000,1000,16,0), opening_animation_2("data/Frame2.png", 1000, 1000, 16, 0)
+, opening_animation_3("data/Frame3.png", 1000, 1000, 16, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 10, 0)
 {
 	srand(time(NULL));
 }
@@ -78,6 +80,11 @@ void Game::render()
 	case GameState::MainMenu:
 		window.draw(text_hello_world);
 		window.draw(text_enter);
+		if (opening_animation_1.getLoopCount() < 1)
+		{
+			window.draw(opening_animation_1.play());
+		}
+		
 		break;
 	case GameState::Playing:
 		window.draw(sprite_sfml_logo);

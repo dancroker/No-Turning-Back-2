@@ -9,6 +9,7 @@
 #include "GameObjects/GameObject.hpp"
 #include "GameObjects/PlayerCharacter.hpp"
 #include "Map/GameMap.hpp"
+#include "AnimationManager.hpp"
 
 class Game
 {
@@ -47,6 +48,11 @@ private:
 	float gravity{ 10.f };
 
 	GameMap map;
+
+	AnimationManager opening_animation_1;
+	AnimationManager opening_animation_2;
+	AnimationManager opening_animation_3;
+	AnimationManager opening_animation_4;
 
 	//Player
 	//GameObject player;
