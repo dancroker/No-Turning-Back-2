@@ -5,10 +5,15 @@
 #include "enums/GameState.hpp"
 
 Game::Game(sf::RenderWindow& game_window) : window(game_window), 
-opening_animation_1("data/Frame1.png",1000,1000,16,0), opening_animation_2("data/Frame2.png", 1000, 1000, 16, 0)
-, opening_animation_3("data/Frame3.png", 1000, 1000, 16, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 10, 0)
+opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data/Frame2.png", 1000, 1000, 15, 0)
+, opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0)
 {
 	srand(time(NULL));
+	float scale_factor = 0.7f; // Adjust this value to scale the animation
+	opening_animation_1.setScale(scale_factor, scale_factor);
+	opening_animation_2.setScale(scale_factor, scale_factor);
+	opening_animation_3.setScale(scale_factor, scale_factor);
+	opening_animation_4.setScale(scale_factor, scale_factor);
 }
 
 Game::~Game() {}
@@ -80,10 +85,8 @@ void Game::render()
 	case GameState::MainMenu:
 		window.draw(text_hello_world);
 		window.draw(text_enter);
-		if (opening_animation_1.getLoopCount() < 1)
-		{
-			window.draw(opening_animation_1.play());
-		}
+
+		playOpeningAnimation();
 		
 		break;
 	case GameState::Playing:
@@ -114,4 +117,28 @@ GameState Game::getCurrentGameState() const
 void Game::setCurrentGameState(GameState newGameState)
 {
 	current_game_state = newGameState;
+}
+
+void Game::playOpeningAnimation()
+{
+	if (opening_animation_1.play() < 1)
+	{
+		window.draw(opening_animation_1.getSprite());
+	}
+	else if (opening_animation_2.play() < 1)
+	{
+		window.draw(opening_animation_2.getSprite());
+	}
+	else if (opening_animation_3.play() < 1)
+	{
+		window.draw(opening_animation_3.getSprite());
+	}
+	else if (opening_animation_4.play() < 1)
+	{
+		window.draw(opening_animation_4.getSprite());
+	}
+	else
+	{
+		setCurrentGameState(GameState::Playing);
+	}
 }
