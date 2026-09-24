@@ -8,7 +8,7 @@ OwnSound::OwnSound() {
 }
 OwnSound::~OwnSound() {
 }
-
+//for sound effects
 bool OwnSound::loadPlaySound(std::string filename) {
 	sf::SoundBuffer buffer;
 	sf::Sound sound(buffer);
@@ -21,6 +21,7 @@ bool OwnSound::loadPlaySound(std::string filename) {
 	return true;
 }
 
+//for looping music
 bool OwnSound::loadPlayMusic() {
 	sf::Music music;
 	if (!music.openFromFile("data/mainLoop.wav")) {
