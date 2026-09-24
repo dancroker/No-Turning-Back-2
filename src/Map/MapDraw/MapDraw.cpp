@@ -17,6 +17,7 @@ void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow
 				if (layout[y][x] == tileType::HIDDEN)
 				{
 					sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
+					//sprite_tilemap.setTextureRect(sf::IntRect({ 0, 0 }, { (int)tile_size, (int)tile_size }));
 					float tile_x = x * tile_size;
 					float tile_y = (y * tile_size) + previous_level_size + scroll_amount;
 					tile.setPosition({ tile_x, tile_y });
@@ -31,12 +32,13 @@ void MapDraw::draw(const std::vector<std::vector<int>>& layout, sf::RenderWindow
 					//std::cout << "(" << calculate_tilemap_value(layout, x, y) << ")";
 
 					//Basic tile drawing to screen, replace with actual tilemap!
-					sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
+					//sf::RectangleShape tile(sf::Vector2f(tile_size, tile_size));
+					sprite_tilemap.setTextureRect(sf::IntRect({ 0, 0 }, { (int)tile_size, (int)tile_size }));
 					float tile_x = x * tile_size;
 					float tile_y = (y * tile_size) + previous_level_size + scroll_amount;
-					tile.setPosition({ tile_x, tile_y });
-					tile.setFillColor(sf::Color::Green);
-					window.draw(tile);
+					sprite_tilemap.setPosition({ tile_x, tile_y });
+					//tile.setFillColor(sf::Color::Green);
+					window.draw(sprite_tilemap);
 				}
 			}
 		}

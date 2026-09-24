@@ -31,6 +31,10 @@ private:
 	//int tiles[256];
 	//Need to find efficent way to do tile check, to get the value and convert into tilemap co-ords
 	//Will wait till tilemap is added before developing this! :)  
+
+	sf::Texture texture_tilemap{ "./data/images/Platform_1.png" };
+	sf::Sprite sprite_tilemap{ texture_tilemap };
+
 	enum tileType
 	{
 		AIR,

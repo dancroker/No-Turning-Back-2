@@ -9,7 +9,7 @@ opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data
 , opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0)
 {
 	srand(time(NULL));
-	float scale_factor = 0.7f; // Adjust this value to scale the animation
+	float scale_factor = 0.7f;
 	opening_animation_1.setScale(scale_factor, scale_factor);
 	opening_animation_2.setScale(scale_factor, scale_factor);
 	opening_animation_3.setScale(scale_factor, scale_factor);
