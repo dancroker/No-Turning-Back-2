@@ -10,6 +10,7 @@
 #include "GameObjects/PlayerCharacter.hpp"
 #include "Map/GameMap.hpp"
 #include "AnimationManager.hpp"
+#include "OwnSound.hpp"
 
 class Game
 {
@@ -53,6 +54,8 @@ private:
 	AnimationManager opening_animation_2;
 	AnimationManager opening_animation_3;
 	AnimationManager opening_animation_4;
+
+	OwnSound music;
 
 	//Player
 	//GameObject player;

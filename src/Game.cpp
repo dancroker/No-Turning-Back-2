@@ -90,6 +90,7 @@ void Game::render()
 		window.draw(sprite_sfml_logo);
 		window.draw(player.getHitbox());
 		map.draw_map(window);
+		music.loadPlayMusic();
 		break;
 	case GameState::Paused:
 		break;

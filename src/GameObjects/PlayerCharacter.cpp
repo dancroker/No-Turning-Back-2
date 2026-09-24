@@ -1,5 +1,6 @@
 #include "PlayerCharacter.hpp"
 
+
 void PlayerCharacter::update()
 {
 	hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
@@ -25,6 +26,8 @@ void PlayerCharacter::jump()
 	{
 		grounded = false;
 		velocity.y = -jump_power;
+		sound.loadPlaySound("data/jump.wav");
+
 	}
 }
 
