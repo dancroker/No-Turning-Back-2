@@ -27,8 +27,9 @@ bool OwnSound::loadPlayMusic() {
 	if (!music.openFromFile("data/mainLoop.wav")) {
 		return false;
 	}
-	else { return true; }
-	music.play();
+	//else { return true; }  <-- this returns the function before anything else can be done
+	music.play();  // <-- this will not run if the function returns too early
 	music.setLoopPoints({ sf::seconds(9), sf::seconds(86) });
+	return true; // successful return goes on the end
 }
 
