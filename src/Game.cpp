@@ -21,7 +21,7 @@ Game::~Game() {}
 bool Game::init()
 {
 	text_hello_world.setString("Hello, World!");
-	map.generate(4); 
+	map.generate(3);
 
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
@@ -40,8 +40,9 @@ void Game::update(float dt)
 	case GameState::MainMenu:
 		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
 			current_game_state = GameState::Playing;
-		break;
+		break; 
 	case GameState::Playing:
+		map.update(); 
 		if (!input_handler->getActiveCharacterActions().empty())
 		{
 			for (CharacterAction action : input_handler->getActiveCharacterActions())
@@ -111,7 +112,7 @@ InputHandler& Game::getInputHandler() const
 
 GameState Game::getCurrentGameState() const
 {
-	return current_game_state;
+	return current_game_state;   
 }
 
 void Game::setCurrentGameState(GameState newGameState)
