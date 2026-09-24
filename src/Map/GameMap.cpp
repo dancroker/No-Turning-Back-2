@@ -46,3 +46,13 @@ void GameMap::unlockHiddenLevelSection(int section)
 {
 	level.unlockHiddenLevelSection(section);
 }
+
+int GameMap::getMapSize()
+{
+	return level.amountOfLevels();
+}
+
+std::vector<std::vector<int>>& GameMap::getLevelLayout(int section, bool hidden)
+{
+	return level.getLevelLayout(section, hidden);
+}

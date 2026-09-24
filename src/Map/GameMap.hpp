@@ -12,12 +12,16 @@ public:
 	void update();
 	void printMap();
 	void unlockHiddenLevelSection(int section);
+	int getMapSize();
+	std::vector< std::vector <int>>& getLevelLayout(int section, bool hidden);
+	LevelGen& getLevelGen() { return level; };
+	float getTileSize() { return tile_size; };
 
 private:
 	LevelGen level;
 	MapDraw map_draw;
 
-	float tile_size = 32.0f;
+	float tile_size = 64.0f;
 	float max_scroll_amount = 0.0f;
 	float scroll_amount = 0.0f;
 	float scroll_speed = 1.0f;

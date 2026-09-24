@@ -65,6 +65,7 @@ void InputHandler::handleKeyPressed(const sf::Event::KeyPressed& keyPressed)
 		addCharacterAction(CharacterAction::MoveRight);
 		break;
 	case sf::Keyboard::Scancode::W:
+	case sf::Keyboard::Scancode::Space:
 		addCharacterAction(CharacterAction::Jump);
 		break;
 	default:
@@ -85,6 +86,7 @@ void InputHandler::handleKeyReleased(const sf::Event::KeyReleased& keyReleased)
 		removeCharacterAction(CharacterAction::MoveRight);
 		break;
 	case sf::Keyboard::Scancode::W:
+	case sf::Keyboard::Scancode::Space:
 		removeCharacterAction(CharacterAction::Jump);
 		break;
 	
