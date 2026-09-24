@@ -21,6 +21,7 @@ bool Game::init()
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
 
+	player.init();
 	player.getSprite().setTexture(texture_player);
 	player.getHitbox().setFillColor(sf::Color::Magenta);
 	player.getHitbox().setSize(sf::Vector2f{ 256.f, 256.f });
@@ -75,6 +76,7 @@ void Game::update(float dt)
 void Game::render()
 {
 	window.clear(sf::Color{ 100, 149, 237, 255 }); // Cornflower Blue
+	window.setView(window.getDefaultView());
 
 	switch (current_game_state)
 	{
@@ -88,6 +90,7 @@ void Game::render()
 		
 		break;
 	case GameState::Playing:
+		window.setView(player.getPlayerCamera());
 		window.draw(sprite_sfml_logo);
 		window.draw(player.getHitbox());
 		window.draw(player.getSprite());

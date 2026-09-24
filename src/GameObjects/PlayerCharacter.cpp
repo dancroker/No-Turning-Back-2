@@ -2,14 +2,21 @@
 
 void PlayerCharacter::init()
 {
+	player_camera->setSize(sf::Vector2f{ 1080, 720 });
 }
 
 void PlayerCharacter::update()
 {
 	hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
 	syncSpriteWithHitbox();
+	centerCamera();
 
 	velocity.x = (velocity.x >= -0.1 && velocity.x <= 0.1) ? 0 : velocity.x / 2;
+}
+
+void PlayerCharacter::centerCamera()
+{
+	player_camera->setCenter(sf::Vector2f{ hitbox->getPosition().x + hitbox->getGlobalBounds().size.x / 2, hitbox->getPosition().y + hitbox->getGlobalBounds().size.y / 2 });
 }
 
 void PlayerCharacter::moveLeft()
@@ -31,6 +38,11 @@ void PlayerCharacter::jump()
 		grounded = false;
 		velocity.y = -jump_power;
 	}
+}
+
+sf::View& PlayerCharacter::getPlayerCamera() const
+{
+	return *player_camera;
 }
 
 bool PlayerCharacter::getGrounded() const

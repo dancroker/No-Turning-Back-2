@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <SFML/Graphics.hpp>
 
 #include "GameObject.hpp"
@@ -10,10 +12,14 @@ public:
 
 	void init() override;
 	void update() override;
+	
+	void centerCamera();
 
 	void moveLeft();
 	void moveRight();
 	void jump();
+
+	sf::View& getPlayerCamera() const;
 
 	bool getGrounded() const;
 	void setGrounded(bool new_grounded);
@@ -23,7 +29,7 @@ public:
 	void setJumpPower(float new_jump_power);
 
 private:
-	sf::View player_camera;
+	std::unique_ptr<sf::View> player_camera{ std::make_unique<sf::View>() };
 
 	bool grounded{ false };
 	float speed{ 50.f };
