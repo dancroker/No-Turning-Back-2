@@ -58,12 +58,15 @@ void InputHandler::handleKeyPressed(const sf::Event::KeyPressed& keyPressed)
 
 	switch(keyPressed.scancode)
 	{
+	case sf::Keyboard::Scancode::Left:
 	case sf::Keyboard::Scancode::A:
 		addCharacterAction(CharacterAction::MoveLeft);
 		break;
+	case sf::Keyboard::Scancode::Right:
 	case sf::Keyboard::Scancode::D:
 		addCharacterAction(CharacterAction::MoveRight);
 		break;
+	case sf::Keyboard::Scancode::Up:
 	case sf::Keyboard::Scancode::W:
 	case sf::Keyboard::Scancode::Space:
 		addCharacterAction(CharacterAction::Jump);
@@ -82,12 +85,15 @@ void InputHandler::handleKeyReleased(const sf::Event::KeyReleased& keyReleased)
 
 	switch (keyReleased.scancode)
 	{
+	case sf::Keyboard::Scancode::Left:
 	case sf::Keyboard::Scancode::A:
 		removeCharacterAction(CharacterAction::MoveLeft);
 		break;
+	case sf::Keyboard::Scancode::Right:
 	case sf::Keyboard::Scancode::D:
 		removeCharacterAction(CharacterAction::MoveRight);
 		break;
+	case sf::Keyboard::Scancode::Up:
 	case sf::Keyboard::Scancode::W:
 	case sf::Keyboard::Scancode::Space:
 		removeCharacterAction(CharacterAction::Jump);
