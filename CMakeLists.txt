@@ -22,10 +22,6 @@ add_executable(game
   "src/GameObjects/GameObject.cpp"
   "src/GameObjects/PlayerCharacter.cpp"
 
-
-  "src/gui/button.cpp"
-  "src/gui/list.cpp"
-
   "src/Map/LevelGen/LevelGen.cpp"
   "src/Map/LevelGen/Level.cpp"
   "src/Map/MapDraw/MapDraw.cpp"
@@ -34,10 +30,11 @@ add_executable(game
   "src/Camera.cpp"
   "src/Game.cpp"
   "src/InputHandler.cpp"
+  "src/Menus/MenuCreator.h" 
+  "src/Menus/MenuCreator.cpp" 
+  "src/Menus/MainMenuScreen.h" 
+  "src/Menus/MainMenuScreen.cpp"
  "src/AnimationManager.cpp"
- "src/OwnSound.cpp"
- 
-
 )
 
 target_link_directories(game PRIVATE

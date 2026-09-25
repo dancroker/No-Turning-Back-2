@@ -9,8 +9,9 @@
 #include "GameObjects/GameObject.hpp"
 #include "GameObjects/PlayerCharacter.hpp"
 #include "Map/GameMap.hpp"
+#include "Menus/MainMenuScreen.h"
 #include "AnimationManager.hpp"
-#include "OwnSound.hpp"
+#include <SFML/Audio.hpp>
 
 class Game
 {
@@ -21,6 +22,8 @@ public:
 	bool init();
 	void update(float dt);
 	void render();
+	int keyPressed(sf::Event event, sf::RenderWindow& window, InputHandler& input_handler);
+	void keyReleased(sf::Event event);
 
 	InputHandler& getInputHandler() const;
 
@@ -57,7 +60,11 @@ private:
 	AnimationManager opening_animation_3;
 	AnimationManager opening_animation_4;
 
-	OwnSound music;
+	sf::SoundBuffer menu_music_sound_buffer;
+	sf::Sound menu_music_sound;
+
+	sf::SoundBuffer game_music_sound_buffer;
+	sf::Sound game_music_sound;
 
 	//Player
 	//GameObject player;
@@ -70,5 +77,13 @@ private:
 	//float gravity   = 10;
 	//float groundHeight = window.getSize().y - 100;
 	//Vector2 velocity = { 0.0f, 0.0f };
+
+	bool s_key_pressed{ false };
+	bool w_key_pressed{ false };
+	
+
+
+
+	MainMenuScreen main_menu_screen;
 
 };

@@ -1,8 +1,19 @@
 #include "PlayerCharacter.hpp"
 
+PlayerCharacter::PlayerCharacter(): jump_sfx_sound(jump_sfx_sound_buffer)
+{
+	jump_sfx_sound_buffer.loadFromFile("data/jump.wav");
+	jump_sfx_sound.setBuffer(jump_sfx_sound_buffer);
+	// jump_sfx_sound.play(); - In Jump function!
+}
+
+PlayerCharacter::~PlayerCharacter()
+{}
+
 void PlayerCharacter::init()
 {
 	player_camera->setSize(sf::Vector2f{ 1080, 720 });
+
 }
 
 void PlayerCharacter::update(float& gravity, std::vector<Level>& map, float tile_size)
