@@ -13,6 +13,8 @@ void LevelGen::generateLevels(int number_of_levels)
 	if (map.size() > 0)
 	{
 		map.clear();
+		hidden_map.clear();
+		std::cout << "MAP!";
 	}
 	if (number_of_levels < 3)
 	{
@@ -111,6 +113,11 @@ void LevelGen::unlockHiddenLevelSection(int section)
 	{
 		std::cerr << "Error: No hidden levels to unlock." << std::endl;
 	}
+}
+
+std::vector<Level>& LevelGen::getMap()
+{
+	return map;
 }
 
 void LevelGen::generateSectionOfLevel(int number_of_levels, std::filesystem::path file_path)

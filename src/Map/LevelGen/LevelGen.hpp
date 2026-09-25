@@ -17,6 +17,8 @@ public:
 	int amountOfLevels();
 	void unlockHiddenLevelSection(int section);
 
+	std::vector<Level>& getMap();
+
 private:
 	std::vector<Level> map;
 	std::vector<Level> hidden_map;
