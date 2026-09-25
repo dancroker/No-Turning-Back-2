@@ -33,7 +33,7 @@ private:
 	//Need to find efficent way to do tile check, to get the value and convert into tilemap co-ords
 	//Will wait till tilemap is added before developing this! :)  
 
-	sf::Texture texture_tilemap{ "./data/images/SquarePlatform_1.png" };
+	sf::Texture texture_tilemap{ "./data/images/SquarePlatform_3.png" };
 	sf::Sprite sprite_tilemap{ texture_tilemap };
 
 	float tile_map_tile_size = 16.0f;
