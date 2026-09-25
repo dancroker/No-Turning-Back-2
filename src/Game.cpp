@@ -48,6 +48,10 @@ bool Game::init()
 
 	sprite_menu_background.setPosition(sf::Vector2f{ 0.f, -600.f });
 	sprite_menu_background.scale(sf::Vector2f{0.7f,0.7f});
+
+	sprite_gameplay_background.setPosition(sf::Vector2f{0, 0 });
+	sprite_gameplay_background.scale(sf::Vector2f{ 2.2f,1.5f });
+
 	
 	main_menu_screen.init();
 	select_level_menu.init();
@@ -222,7 +226,7 @@ void Game::render()
 	{
 	case GameState::MainMenu:
 		window.draw(sprite_menu_background);
-		window.draw(sprite_menu_tite);
+		window.draw(sprite_menu_title);
 		main_menu_screen.render(window);
 		
 		break;
@@ -239,11 +243,13 @@ void Game::render()
 		select_level_menu.render(window);
 		break;
 	case GameState::Playing:
+		window.draw(sprite_gameplay_background);
 		window.setView(player.getPlayerCamera());
 		//window.draw(sprite_sfml_logo);
 		//window.draw(player.getHitbox());
 		window.draw(player.getSprite());
 		map.draw_map(window);
+		
 		break;
 	case GameState::Paused:
 		break;
