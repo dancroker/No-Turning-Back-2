@@ -10,7 +10,8 @@
 Game::Game(sf::RenderWindow& game_window) : window(game_window), 
 opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data/Frame2.png", 1000, 1000, 15, 0)
 , opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0), 
-menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer), riser_sound(riser_sound_buffer)
+menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer), riser_sound(riser_sound_buffer), 
+lose_sound(lose_sound_buffer), win_sound(win_sound_buffer)
 {
 	srand(time(NULL));
 	float scale_factor = 0.7f;
@@ -18,12 +19,21 @@ menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buf
 	opening_animation_2.setScale(scale_factor, scale_factor);
 	opening_animation_3.setScale(scale_factor, scale_factor);
 	opening_animation_4.setScale(scale_factor, scale_factor);
+
 	menu_music_sound_buffer.loadFromFile("data/music/menu_music.wav");
 	menu_music_sound.setBuffer(menu_music_sound_buffer);
+
 	game_music_sound_buffer.loadFromFile("data/music/game_music.wav");
 	game_music_sound.setBuffer(game_music_sound_buffer);
+
 	riser_sound_buffer.loadFromFile("data/sounds/riser_sound.wav");
 	riser_sound.setBuffer(riser_sound_buffer);
+
+	lose_sound_buffer.loadFromFile("data/sounds/lose_music.wav");
+	lose_sound.setBuffer(lose_sound_buffer);
+
+	win_sound_buffer.loadFromFile("data/sounds/win_music.wav");
+	win_sound.setBuffer(win_sound_buffer);
 }
 
 Game::~Game() {}
@@ -252,6 +262,7 @@ void Game::render()
 		break;
 	case GameState::Playing:
 		window.draw(sprite_gameplay_background);
+		window.draw(sprite_side_background);
 		window.setView(player.getPlayerCamera());
 		//window.draw(sprite_sfml_logo);
 		//window.draw(player.getHitbox());
