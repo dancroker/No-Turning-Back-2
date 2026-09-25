@@ -56,10 +56,10 @@ target_link_libraries(game PRIVATE
 
 # -- im only gonna add this when needed --
 
-# # INSTALL
-# install(TARGETS game
-#   RUNTIME DESTINATION bin
-# )
-# install(DIRECTORY data/
-#   DESTINATION bin/data
-# )
+# INSTALL
+install(TARGETS game
+  RUNTIME DESTINATION bin
+)
+install(DIRECTORY data/
+  DESTINATION bin/data
+)
