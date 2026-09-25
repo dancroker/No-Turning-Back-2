@@ -15,8 +15,8 @@ void GameMap::generate(int level_count)
 	//{
 	//	max_scroll_amount += (level.getLevelLayout(i, false).size() * tile_size);
 	//}
-	level.printHiddenMap();
-	level.printMap();
+	//level.printHiddenMap();
+	//level.printMap();
 }
 
 void GameMap::draw_map(sf::RenderWindow& window)

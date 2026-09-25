@@ -13,6 +13,8 @@ void LevelGen::generateLevels(int number_of_levels)
 	if (map.size() > 0)
 	{
 		map.clear();
+		hidden_map.clear();
+		std::cout << "MAP!";
 	}
 	if (number_of_levels < 3)
 	{
