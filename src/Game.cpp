@@ -10,7 +10,7 @@
 Game::Game(sf::RenderWindow& game_window) : window(game_window), 
 opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data/Frame2.png", 1000, 1000, 15, 0)
 , opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0), 
-menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer)
+menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer), riser_sound(riser_sound_buffer)
 {
 	srand(time(NULL));
 	float scale_factor = 0.7f;
@@ -22,6 +22,8 @@ menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buf
 	menu_music_sound.setBuffer(menu_music_sound_buffer);
 	game_music_sound_buffer.loadFromFile("data/music/game_music.wav");
 	game_music_sound.setBuffer(game_music_sound_buffer);
+	riser_sound_buffer.loadFromFile("data/sounds/riser_sound.wav");
+	riser_sound.setBuffer(riser_sound_buffer);
 }
 
 Game::~Game() {}
@@ -160,6 +162,7 @@ void Game::update(float dt)
 		{
 			menu_music_sound.stop();
 			game_music_sound.play();
+			riser_sound.stop();
 		}
 
 		if (!input_handler->getActiveCharacterActions().empty())
@@ -225,6 +228,7 @@ void Game::render()
 		{
 			menu_music_sound.stop();
 			game_music_sound.stop();
+			riser_sound.play();
 		}
 		playOpeningAnimation();
 		break;
