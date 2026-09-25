@@ -10,7 +10,8 @@
 Game::Game(sf::RenderWindow& game_window) : window(game_window), 
 opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data/Frame2.png", 1000, 1000, 15, 0)
 , opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0), 
-menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer), riser_sound(riser_sound_buffer)
+menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer), riser_sound(riser_sound_buffer), 
+lose_sound(lose_sound_buffer), win_sound(win_sound_buffer)
 {
 	srand(time(NULL));
 	float scale_factor = 0.7f;
@@ -253,6 +254,7 @@ void Game::render()
 		break;
 	case GameState::Playing:
 		window.draw(sprite_gameplay_background);
+		window.draw(sprite_side_background);
 		window.setView(player.getPlayerCamera());
 		//window.draw(sprite_sfml_logo);
 		//window.draw(player.getHitbox());

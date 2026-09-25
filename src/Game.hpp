@@ -52,6 +52,7 @@ private:
 	sf::Texture texture_menu_background{ "./data/images/Menu_background.png" };
 	sf::Texture texture_menu_title{ "./data/images/No-Turning-Back-2.png" };
 	sf::Texture texture_player{ "./data/images/sfml-icon-small.png" };
+	sf::Texture texture_side_background{ "./data/images/SideImage.png" };
 
 	sf::Texture texture_gameplay_background{ "./data/images/Bg_1.png" };
 	
@@ -60,6 +61,7 @@ private:
 
 
 	sf::Sprite sprite_menu_background{ texture_menu_background };
+	sf::Sprite sprite_side_background{ texture_side_background };
 
 	sf::Sprite sprite_gameplay_background{ texture_gameplay_background };
 	PlayerCharacter player{};
