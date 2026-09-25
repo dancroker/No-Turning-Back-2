@@ -13,7 +13,6 @@ void MainMenuScreen::init()
 		std::cout << "Error loading background texture" << std::endl;
 	}
 
-	Title_text = TextCreator(0, "Game Title", 50, sf::Color::Green, sf::Vector2f(100.f, 50.f));
 	Play_option = TextCreator(0, "Play", 30, sf::Color::White, sf::Vector2f(100.f, 150.f));
 	Quit_option = TextCreator(0, "Quit", 30, sf::Color::White, sf::Vector2f(100.f, 200.f));
 
