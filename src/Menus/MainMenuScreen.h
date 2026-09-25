@@ -26,6 +26,8 @@ private:
 	sf::Text Play_option;
 	sf::Text Quit_option;
 	sf::Font font;
+
+
 	sf::Texture background_main_menu_texture;
 	sf::Sprite background_main_menu_sprite;
 
