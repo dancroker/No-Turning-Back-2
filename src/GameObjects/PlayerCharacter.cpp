@@ -43,10 +43,10 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, float tile
 
 	updateCollision(map, tile_size, false);
 
-	if (col_velocity.y == 0.f)
+	if (col_velocity.y == 0.f) // 
 	{
 		getHitbox().move({ 0.f, velocity.y });
-		grounded = true;
+		grounded = false;
 	}
 	else
 	{
@@ -54,10 +54,12 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, float tile
 		{
 			getHitbox().move({ 0.f, col_velocity.y });
 			syncSpriteWithHitbox();
-			grounded = false;
+			grounded = true;
 			updateCollision(map, tile_size, false);
 		} while (col_velocity.y != 0);
 	}
+
+	applyGravity(gravity);
 
 	// simple horizontal friction
 	velocity.x = (std::abs(velocity.x) < 0.1f) ? 0.f : velocity.x / 2.f;
@@ -146,20 +148,29 @@ void PlayerCharacter::moveRight()
 
 void PlayerCharacter::jump()
 {
-	//if (grounded)
-	//{
-		//velocity.y = -jump_power;
-	getHitbox().move({ 0.f,1.f });
+	if (grounded)
+	{
+		//getHitbox().move({ 0.f,1.f });
 		//sound.loadPlaySound("data/jump.wav"); // Loading causes too much lag
 
-	//}
+		printf("jumping\n");
+		velocity.y = -jump_power / 3;
+		grounded = false;
+	} else {
+	
+	}
 }
 
 void PlayerCharacter::applyGravity(float& gravity)
 {
 	if (!grounded)
-	{
-		velocity.y += (velocity.y > 10 || velocity.y < -10) ? 0 : gravity / 10;
+	{	
+		printf("not grounded\n");
+		velocity.y += 1;
+	}
+	else {
+		velocity.y = 0;
+		printf("grounded\n");
 	}
 	//else if (grounded)
 	//{
