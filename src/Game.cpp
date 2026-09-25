@@ -6,9 +6,11 @@
 
 #include "Menus/MainMenuScreen.h"
 
+
 Game::Game(sf::RenderWindow& game_window) : window(game_window), 
 opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data/Frame2.png", 1000, 1000, 15, 0)
-, opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0)
+, opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0), 
+menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer)
 {
 	srand(time(NULL));
 	float scale_factor = 0.7f;
@@ -16,13 +18,17 @@ opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data
 	opening_animation_2.setScale(scale_factor, scale_factor);
 	opening_animation_3.setScale(scale_factor, scale_factor);
 	opening_animation_4.setScale(scale_factor, scale_factor);
+	menu_music_sound_buffer.loadFromFile("data/music/menu_music.wav");
+	menu_music_sound.setBuffer(menu_music_sound_buffer);
+	game_music_sound_buffer.loadFromFile("data/music/game_music.wav");
+	game_music_sound.setBuffer(game_music_sound_buffer);
 }
 
 Game::~Game() {}
 
 bool Game::init()
 {
-	music.loadPlayMusic(); // Loading the music goes here instead of in the render loop.
+	//music.loadPlayMusic(); // Loading the music goes here instead of in the render loop.
 
 	text_hello_world.setString("Hello, World!");
 	map.generate(3);
@@ -51,8 +57,16 @@ void Game::update(float dt)
 	{
 	case GameState::MainMenu:
 
+		if (menu_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
+		{
+			menu_music_sound.play();
+			game_music_sound.stop();
+		}
+
 		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
+		{
 			current_game_state = GameState::IntroCutscene;
+		}
 
 		if (!s_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::S))
 		{
@@ -92,6 +106,13 @@ void Game::update(float dt)
 		break;
 	case GameState::Playing:
 		map.update(); //--------------------------------------------------------------
+
+		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
+		{
+			menu_music_sound.stop();
+			game_music_sound.play();
+		}
+
 		if (!input_handler->getActiveCharacterActions().empty())
 		{
 			for (CharacterAction action : input_handler->getActiveCharacterActions())
@@ -140,6 +161,11 @@ void Game::render()
 		
 		break;
 	case GameState::IntroCutscene:
+		if (game_music_sound.getStatus() == sf::SoundSource::Status::Playing || menu_music_sound.getStatus() == sf::SoundSource::Status::Playing)
+		{
+			menu_music_sound.stop();
+			game_music_sound.stop();
+		}
 		playOpeningAnimation();
 		break;
 	case GameState::Playing:

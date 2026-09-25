@@ -35,7 +35,6 @@ add_executable(game
   "src/Menus/MainMenuScreen.h" 
   "src/Menus/MainMenuScreen.cpp"
  "src/AnimationManager.cpp"
- "src/OwnSound.cpp"
 )
 
 target_link_directories(game PRIVATE

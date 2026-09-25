@@ -8,11 +8,12 @@
 
 #include <SFML/Audio.hpp>
 
-#include "../OwnSound.hpp"
 
 class PlayerCharacter : public GameObject
 {
 public:
+	PlayerCharacter();
+	~PlayerCharacter();
 
 	void init() override;
 	void update() override;
@@ -31,7 +32,6 @@ public:
 	void setSpeed(float new_speed);
 	float getJumpPower() const;
 	void setJumpPower(float new_jump_power);
-	OwnSound sound;
 
 
 
@@ -42,4 +42,6 @@ private:
 	float speed{ 50.f };
 	float jump_power{ 50.f };
 	
+	sf::SoundBuffer jump_sfx_sound_buffer;
+	sf::Sound jump_sfx_sound;
 };

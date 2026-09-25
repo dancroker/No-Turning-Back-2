@@ -11,7 +11,7 @@
 #include "Map/GameMap.hpp"
 #include "Menus/MainMenuScreen.h"
 #include "AnimationManager.hpp"
-#include "OwnSound.hpp"
+#include <SFML/Audio.hpp>
 
 class Game
 {
@@ -60,7 +60,11 @@ private:
 	AnimationManager opening_animation_3;
 	AnimationManager opening_animation_4;
 
-	OwnSound music;
+	sf::SoundBuffer menu_music_sound_buffer;
+	sf::Sound menu_music_sound;
+
+	sf::SoundBuffer game_music_sound_buffer;
+	sf::Sound game_music_sound;
 
 	//Player
 	//GameObject player;
