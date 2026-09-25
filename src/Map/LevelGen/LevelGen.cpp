@@ -113,6 +113,11 @@ void LevelGen::unlockHiddenLevelSection(int section)
 	}
 }
 
+std::vector<Level>& LevelGen::getMap()
+{
+	return map;
+}
+
 void LevelGen::generateSectionOfLevel(int number_of_levels, std::filesystem::path file_path)
 {
 	std::vector<std::filesystem::path> files;

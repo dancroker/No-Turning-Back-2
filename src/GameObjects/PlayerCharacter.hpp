@@ -16,13 +16,16 @@ public:
 	~PlayerCharacter();
 
 	void init() override;
-	void update() override;
+	void update(float& gravity, std::vector<Level>& map, float tile_size);
+	void updateCollision(std::vector<Level>& map, float tile_size, bool check_top);
 	
 	void centerCamera();
 
 	void moveLeft();
 	void moveRight();
 	void jump();
+
+	void applyGravity(float& gravity);
 
 	sf::View& getPlayerCamera() const;
 
@@ -37,7 +40,7 @@ public:
 
 private:
 	std::unique_ptr<sf::View> player_camera{ std::make_unique<sf::View>() };
-
+	sf::Vector2f col_velocity{ 0.f, 0.f };
 	bool grounded{ false };
 	float speed{ 50.f };
 	float jump_power{ 50.f };

@@ -12,6 +12,10 @@ public:
 	void update();
 	void printMap();
 	void unlockHiddenLevelSection(int section);
+	int getMapSize();
+	std::vector< std::vector <int>>& getLevelLayout(int section, bool hidden);
+	LevelGen& getLevelGen() { return level; };
+	float getTileSize() { return tile_size; };
 
 private:
 	LevelGen level;
