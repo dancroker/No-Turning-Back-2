@@ -52,6 +52,7 @@ bool Game::init()
 	sprite_gameplay_background.setPosition(sf::Vector2f{0, 0 });
 	sprite_gameplay_background.scale(sf::Vector2f{ 2.2f,1.5f });
 
+	sprite_john.setPosition(sf::Vector2f{ 0.f, 0.f });
 	
 	main_menu_screen.init();
 	select_level_menu.init();
@@ -165,6 +166,8 @@ void Game::update(float dt)
 		break;
 	case GameState::Playing:
 
+		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y});
+
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			menu_music_sound.stop();
@@ -247,7 +250,8 @@ void Game::render()
 		window.setView(player.getPlayerCamera());
 		//window.draw(sprite_sfml_logo);
 		//window.draw(player.getHitbox());
-		window.draw(player.getSprite());
+		//window.draw(player.getSprite());
+		window.draw(sprite_john);
 		map.draw_map(window);
 		
 		break;

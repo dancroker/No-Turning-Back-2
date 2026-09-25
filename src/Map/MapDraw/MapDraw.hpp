@@ -36,7 +36,7 @@ private:
 	sf::Texture texture_tilemap{ "./data/images/SquarePlatform_3.png" };
 	sf::Sprite sprite_tilemap{ texture_tilemap };
 
-	float tile_map_tile_size = 16.0f;
+	float tile_map_tile_size = 8.0f;
 
 	enum tileType
 	{
