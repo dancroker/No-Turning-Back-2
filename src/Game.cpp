@@ -45,6 +45,9 @@ bool Game::init()
 	player.getHitbox().setSize(sf::Vector2f{ 60.f, 60.f });
 	player.getSprite().setScale(sf::Vector2f{ 0.234f, 0.234f });
 	player.setSpeed(20.f);
+
+	sprite_menu_background.setPosition(sf::Vector2f{ 0.f, -600.f });
+	sprite_menu_background.scale(sf::Vector2f{0.7f,0.7f});
 	
 	main_menu_screen.init();
 	select_level_menu.init();
@@ -218,6 +221,8 @@ void Game::render()
 	switch (current_game_state)
 	{
 	case GameState::MainMenu:
+		window.draw(sprite_menu_background);
+		window.draw(sprite_menu_tite);
 		main_menu_screen.render(window);
 		window.draw(text_hello_world);
 		window.draw(text_enter);

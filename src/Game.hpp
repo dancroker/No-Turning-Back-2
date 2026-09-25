@@ -49,9 +49,13 @@ private:
 
 	sf::Texture texture_sfml_icon{ "./data/images/sfml-icon-small.png" };
 	sf::Texture texture_sfml_logo{ "./data/images/sfml-logo.png" };
+	sf::Texture texture_menu_background{ "./data/images/Menu_background.png" };
+	sf::Texture texture_menu_title{ "./data/images/No-Turning-Back-2.png" };
 	sf::Texture texture_player{ "./data/images/sfml-icon-small.png" };
 	
 	sf::Sprite sprite_sfml_logo{ texture_sfml_logo }; // placeholder reference for movement
+	sf::Sprite sprite_menu_tite{ texture_menu_title };
+	sf::Sprite sprite_menu_background{ texture_menu_background };
 	PlayerCharacter player{};
 	
 	float gravity{ 10.f };
