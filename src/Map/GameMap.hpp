@@ -15,6 +15,7 @@ public:
 	void unlockHiddenLevelSection(int section);
 	int getMapSize();
 	void spawn_stars();
+	int starCollison(sf::FloatRect player_hitbox);
 	std::vector< std::vector <int>>& getLevelLayout(int section, bool hidden);
 	LevelGen& getLevelGen() { return level; };
 	float getTileSize() { return tile_size; };
@@ -25,9 +26,12 @@ private:
 
 	struct star_struct
 	{
-		GameObject star;
+		sf::Sprite sprite;
 		int level_section;
-		sf::Vector2f position;
+
+		star_struct(sf::Texture& texture) : sprite(texture) 
+		{}
+
 	};
 
 	std::vector<star_struct> stars;
@@ -37,6 +41,8 @@ private:
 	float scroll_amount = 0.0f;
 	float scroll_speed = 1.0f;
 	float levels_shown = 4.0f;
+
+	sf::Texture star_texture{ "data/images/Colectable.png" };
 
 public:
 	const std::vector<star_struct>& getStars() const { return stars; }

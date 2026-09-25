@@ -18,6 +18,10 @@ void Level::loadFile(std::string adress)
     {
         std::cerr << "Error opening the file!";
     }
+    else 
+    {
+		std::cout << "File opened successfully: " << adress << std::endl;
+    }
 
 
     std::string string;

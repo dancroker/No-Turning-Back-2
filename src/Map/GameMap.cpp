@@ -11,6 +11,7 @@ GameMap::~GameMap()
 void GameMap::generate(int level_count)
 {
 	level.generateLevels(level_count);
+	spawn_stars();
 }
 
 void GameMap::draw_map(sf::RenderWindow& window)
@@ -22,8 +23,8 @@ void GameMap::draw_map(sf::RenderWindow& window)
 	}
 	for (star_struct& star : stars)
 	{
-		star.star.getHitbox().setPosition({ star.position.x, star.position.y });
-		window.draw(star.star.getSprite());
+		//star.star.getHitbox().setPosition({ star.position.x, star.position.y });
+		window.draw(star.sprite);		
 	}
 }
 
@@ -55,25 +56,31 @@ void GameMap::spawn_stars()
 		for (size_t y = 0; y < design.size(); ++y) {
 			for (size_t x = 0; x < design[y].size(); ++x) {
 				int tile = design[y][x];
-				if (design[y][x] == 2) 
-				{ // Assuming 2 represents a star tile
-					//GameObject star;
-					//star.setTexture("data/images/star.png");
-					//star.getHitbox().setSize(sf::Vector2f(tile_size, tile_size));
-					//star.getHitbox().setPosition({ x * tile_size, y * tile_size });
-					//stars.push_back(star);
-
-					star_struct new_star;
-					new_star.star.setTexture("data/images/star.png");
-					new_star.star.getHitbox().setSize(sf::Vector2f(tile_size, tile_size));
-					new_star.level_section = i;
-					new_star.position = { x * tile_size, y * tile_size };
-					
+				if (tile == 2) 
+				{
+					star_struct new_star(star_texture);
+					new_star.sprite.setPosition({ x * tile_size, y * tile_size });
+					stars.push_back(new_star);
 				}
 			}
 		}
 	}
 	std::cout << stars.size() << " stars spawned." << std::endl;
+}
+
+int GameMap::starCollison(sf::FloatRect player_hitbox)
+{
+	for (size_t i = 0; i < stars.size(); ++i) {
+		if (stars[i].sprite.getGlobalBounds().findIntersection(player_hitbox)) 
+		{
+			std::cout << "Star collected!" << std::endl;
+			unlockHiddenLevelSection(stars[i].level_section);
+			stars.erase(stars.begin() + i);
+			std::cout << stars.size() << " stars remaining." << std::endl;
+			return 1; // Return 1 to indicate a star was collected
+		}
+	}
+	return 0;
 }
 
 std::vector<std::vector<int>>& GameMap::getLevelLayout(int section, bool hidden)

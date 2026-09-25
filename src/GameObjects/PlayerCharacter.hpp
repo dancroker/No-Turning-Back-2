@@ -18,7 +18,7 @@ public:
 	~PlayerCharacter();
 
 	void init() override;
-	void update(float& gravity, std::vector<Level>& map, float tile_size);
+	void update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size);
 	void updateCollision(std::vector<Level>& map, float tile_size, bool check_top);
 	
 	void centerCamera();
@@ -37,6 +37,7 @@ public:
 	void setSpeed(float new_speed);
 	float getJumpPower() const;
 	void setJumpPower(float new_jump_power);
+	void setPosition(const sf::Vector2f& new_position) { hitbox->setPosition(new_position); }
 
 	void MOVEUPPP();
 

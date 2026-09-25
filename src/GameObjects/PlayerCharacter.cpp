@@ -15,7 +15,7 @@ void PlayerCharacter::init()
 	player_camera->setSize(sf::Vector2f{ 1080, 720 });
 }
 
-void PlayerCharacter::update(float& gravity, std::vector<Level>& map, float tile_size)
+void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size)
 {
 	
 	syncSpriteWithHitbox();
@@ -86,7 +86,7 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 				if (!check_top)
 				{
 					 x = getSprite().getPosition().x + getSprite().getGlobalBounds().size.x / 4;
-					 y = getSprite().getPosition().y-3;
+					 y = getSprite().getPosition().y;
 					 width = getSprite().getGlobalBounds().size.x / 2;
 					 height = getSprite().getGlobalBounds().size.y;
 				}

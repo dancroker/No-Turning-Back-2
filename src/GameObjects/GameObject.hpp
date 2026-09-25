@@ -11,6 +11,10 @@ class GameObject
 {
 public:
 	GameObject();
+	GameObject(GameObject&&) noexcept = default;
+	GameObject& operator=(GameObject&&) noexcept = default;
+	GameObject(const GameObject&) = delete;
+	GameObject& operator=(const GameObject&) = delete;
 	~GameObject();
 	
 	virtual void init();
