@@ -8,6 +8,8 @@
 
 #include <SFML/Audio.hpp>
 
+#include "../Map/LevelGen/Level.hpp"
+
 
 class PlayerCharacter : public GameObject
 {
@@ -35,6 +37,8 @@ public:
 	void setSpeed(float new_speed);
 	float getJumpPower() const;
 	void setJumpPower(float new_jump_power);
+
+	void MOVEUPPP();
 
 
 

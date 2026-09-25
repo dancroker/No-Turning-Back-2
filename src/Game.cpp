@@ -105,7 +105,6 @@ void Game::update(float dt)
 
 		break;
 	case GameState::Playing:
-		map.update(); //--------------------------------------------------------------
 
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
 		{
