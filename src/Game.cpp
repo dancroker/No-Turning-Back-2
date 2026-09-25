@@ -40,7 +40,7 @@ bool Game::init()
 	player.init();
 	player.getSprite().setTexture(texture_player);
 	player.getHitbox().setFillColor(sf::Color::Magenta);
-	player.getHitbox().setSize(sf::Vector2f{ 10.f, 10.f });
+	player.getHitbox().setSize(sf::Vector2f{ 60.f, 60.f });
 	player.getSprite().setScale(sf::Vector2f{ 0.234f, 0.234f });
 	player.setSpeed(20.f);
 	
