@@ -18,6 +18,7 @@ public:
 	void unlockHiddenLevelSection(int section);
 
 	std::vector<Level>& getMap();
+	std::vector<Level>& getHiddenMap(){return hidden_map;};
 
 private:
 	std::vector<Level> map;

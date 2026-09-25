@@ -144,6 +144,7 @@ void LevelGen::generateSectionOfLevel(int number_of_levels, std::filesystem::pat
 		Level level;
 		int level_selected = (rand() % files.size());
 		level.generate(files[level_selected].string());
+		std::cout << files[level_selected].string() << std::endl;
 		map.push_back(level);
 		generateHiddenLevels(files[level_selected].stem().string());
 	}

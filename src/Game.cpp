@@ -197,7 +197,8 @@ void Game::update(float dt)
 				}
 			}
 		}
-		player.update(gravity, map.getLevelGen().getMap(), map.getTileSize());
+		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize());
+		map.starCollison(player.getHitbox().getGlobalBounds());
 		break;
 	case GameState::IntroCutscene:
 		if (!enter_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
