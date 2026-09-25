@@ -215,7 +215,7 @@ void Game::update(float dt)
 
 void Game::render()
 {
-	window.clear(sf::Color{ 100, 149, 237, 255 }); // Cornflower Blue
+	window.clear();
 	window.setView(window.getDefaultView());
 
 	switch (current_game_state)
@@ -224,8 +224,6 @@ void Game::render()
 		window.draw(sprite_menu_background);
 		window.draw(sprite_menu_tite);
 		main_menu_screen.render(window);
-		window.draw(text_hello_world);
-		window.draw(text_enter);
 		
 		break;
 	case GameState::IntroCutscene:
