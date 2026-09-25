@@ -18,12 +18,21 @@ menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buf
 	opening_animation_2.setScale(scale_factor, scale_factor);
 	opening_animation_3.setScale(scale_factor, scale_factor);
 	opening_animation_4.setScale(scale_factor, scale_factor);
+
 	menu_music_sound_buffer.loadFromFile("data/music/menu_music.wav");
 	menu_music_sound.setBuffer(menu_music_sound_buffer);
+
 	game_music_sound_buffer.loadFromFile("data/music/game_music.wav");
 	game_music_sound.setBuffer(game_music_sound_buffer);
+
 	riser_sound_buffer.loadFromFile("data/sounds/riser_sound.wav");
 	riser_sound.setBuffer(riser_sound_buffer);
+
+	lose_sound_buffer.loadFromFile("data/sounds/lose_music.wav");
+	lose_sound.setBuffer(lose_sound_buffer);
+
+	win_sound_buffer.loadFromFile("data/sounds/win_music.wav");
+	win_sound.setBuffer(win_sound_buffer);
 }
 
 Game::~Game() {}

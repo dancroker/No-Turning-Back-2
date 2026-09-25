@@ -82,6 +82,12 @@ private:
 	sf::SoundBuffer riser_sound_buffer;
 	sf::Sound riser_sound;
 
+	sf::SoundBuffer lose_sound_buffer;
+	sf::Sound lose_sound;
+
+	sf::SoundBuffer win_sound_buffer;
+	sf::Sound win_sound;
+
 	
 	 
 	//Player
