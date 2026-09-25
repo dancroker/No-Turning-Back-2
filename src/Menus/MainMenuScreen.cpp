@@ -25,7 +25,7 @@ void MainMenuScreen::init()
 void MainMenuScreen::update()
 {
    
-}
+} 
 int MainMenuScreen::keyPressed(sf::Event event, sf::RenderWindow& window, InputHandler& input_handler)
 {
 	return 0;

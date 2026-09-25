@@ -13,7 +13,6 @@ PlayerCharacter::~PlayerCharacter()
 void PlayerCharacter::init()
 {
 	player_camera->setSize(sf::Vector2f{ 1080, 720 });
-
 }
 
 void PlayerCharacter::update(float& gravity, std::vector<Level>& map, float tile_size)
@@ -130,7 +129,7 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 void PlayerCharacter::centerCamera()
 {
 	//player_camera->setCenter(sf::Vector2f{ hitbox->getPosition().x + hitbox->getGlobalBounds().size.x / 2, hitbox->getPosition().y + hitbox->getGlobalBounds().size.y / 2 });
-	player_camera->setCenter(sf::Vector2f{ player_camera->getCenter().x , hitbox->getPosition().y + hitbox->getGlobalBounds().size.y / 2});
+	player_camera->setCenter(sf::Vector2f{ 250 , hitbox->getPosition().y + hitbox->getGlobalBounds().size.y / 2});
 }
 
 void PlayerCharacter::moveLeft()
