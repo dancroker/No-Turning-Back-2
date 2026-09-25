@@ -35,7 +35,7 @@ add_executable(game
   "src/Menus/MainMenuScreen.h" 
   "src/Menus/MainMenuScreen.cpp"
  "src/AnimationManager.cpp"
-)
+ "src/Menus/SelectLevelMenu.cpp")
 
 target_link_directories(game PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/src"

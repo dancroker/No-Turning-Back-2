@@ -12,6 +12,7 @@
 #include "Menus/MainMenuScreen.h"
 #include "AnimationManager.hpp"
 #include <SFML/Audio.hpp>
+#include "Menus/SelectLevelMenu.hpp"
 
 class Game
 {
@@ -24,6 +25,8 @@ public:
 	void render();
 	int keyPressed(sf::Event event, sf::RenderWindow& window, InputHandler& input_handler);
 	void keyReleased(sf::Event event);
+
+	void generateLevel(int level_select);
 
 	InputHandler& getInputHandler() const;
 
@@ -65,7 +68,7 @@ private:
 
 	sf::SoundBuffer game_music_sound_buffer;
 	sf::Sound game_music_sound;
-
+	 
 	//Player
 	//GameObject player;
 	//float jumpHeight;
@@ -80,10 +83,14 @@ private:
 
 	bool s_key_pressed{ false };
 	bool w_key_pressed{ false };
+	bool a_key_pressed{ false };
+	bool d_key_pressed{ false };
+	bool enter_key_pressed{ false };
 	
 
 
 
 	MainMenuScreen main_menu_screen;
+	SelectLevelMenu select_level_menu;
 
 };

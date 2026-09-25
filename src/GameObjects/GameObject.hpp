@@ -20,8 +20,8 @@ public:
 
 	sf::RectangleShape& getHitbox() const;
 	sf::Sprite& getSprite() const;
-
-	sf::Vector2f getVelocity() const;
+	void setTexture(std::string text_path) { texture.loadFromFile(text_path); };
+	sf::Vector2f getVelocity() const; 
 	void setVelocity(const sf::Vector2f& new_velocity);
 
 protected:
