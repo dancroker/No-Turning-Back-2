@@ -233,8 +233,8 @@ void Game::render()
 		break;
 	case GameState::Playing:
 		window.setView(player.getPlayerCamera());
-		window.draw(sprite_sfml_logo);
-		window.draw(player.getHitbox());
+		//window.draw(sprite_sfml_logo);
+		//window.draw(player.getHitbox());
 		window.draw(player.getSprite());
 		map.draw_map(window);
 		break;
