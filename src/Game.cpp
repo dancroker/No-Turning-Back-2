@@ -10,7 +10,7 @@
 Game::Game(sf::RenderWindow& game_window) : window(game_window), 
 opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data/Frame2.png", 1000, 1000, 15, 0)
 , opening_animation_3("data/Frame3.png", 1000, 1000, 15, 0), opening_animation_4("data/Frame4.png", 1000, 1000, 9, 0), 
-menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer)
+menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buffer), riser_sound(riser_sound_buffer)
 {
 	srand(time(NULL));
 	float scale_factor = 0.7f;
@@ -22,6 +22,8 @@ menu_music_sound(menu_music_sound_buffer), game_music_sound(game_music_sound_buf
 	menu_music_sound.setBuffer(menu_music_sound_buffer);
 	game_music_sound_buffer.loadFromFile("data/music/game_music.wav");
 	game_music_sound.setBuffer(game_music_sound_buffer);
+	riser_sound_buffer.loadFromFile("data/sounds/riser_sound.wav");
+	riser_sound.setBuffer(riser_sound_buffer);
 }
 
 Game::~Game() {}
@@ -40,7 +42,7 @@ bool Game::init()
 	player.init();
 	player.getSprite().setTexture(texture_player);
 	player.getHitbox().setFillColor(sf::Color::Magenta);
-	player.getHitbox().setSize(sf::Vector2f{ 10.f, 10.f });
+	player.getHitbox().setSize(sf::Vector2f{ 60.f, 60.f });
 	player.getSprite().setScale(sf::Vector2f{ 0.234f, 0.234f });
 	player.setSpeed(20.f);
 	
@@ -160,6 +162,7 @@ void Game::update(float dt)
 		{
 			menu_music_sound.stop();
 			game_music_sound.play();
+			riser_sound.stop();
 		}
 
 		if (!input_handler->getActiveCharacterActions().empty())
@@ -223,6 +226,7 @@ void Game::render()
 		{
 			menu_music_sound.stop();
 			game_music_sound.stop();
+			riser_sound.play();
 		}
 		playOpeningAnimation();
 		break;
@@ -231,8 +235,8 @@ void Game::render()
 		break;
 	case GameState::Playing:
 		window.setView(player.getPlayerCamera());
-		window.draw(sprite_sfml_logo);
-		window.draw(player.getHitbox());
+		//window.draw(sprite_sfml_logo);
+		//window.draw(player.getHitbox());
 		window.draw(player.getSprite());
 		map.draw_map(window);
 		break;

@@ -68,6 +68,11 @@ private:
 
 	sf::SoundBuffer game_music_sound_buffer;
 	sf::Sound game_music_sound;
+
+	sf::SoundBuffer riser_sound_buffer;
+	sf::Sound riser_sound;
+
+	
 	 
 	//Player
 	//GameObject player;
