@@ -105,6 +105,7 @@ private:
 	bool a_key_pressed{ false };
 	bool d_key_pressed{ false };
 	bool enter_key_pressed{ false };
+	bool player_spawned{ false };
 	
 
 

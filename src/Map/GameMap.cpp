@@ -87,3 +87,14 @@ std::vector<std::vector<int>>& GameMap::getLevelLayout(int section, bool hidden)
 {
 	return level.getLevelLayout(section, hidden);
 }
+
+sf::Vector2i GameMap::getPlayerSpawn()
+{
+	for (int i = 0; i < level.amountOfLevels(); ++i) {
+		sf::Vector2i spawn = level.getPlayerSpawn(i);
+		if (spawn.x != -1 && spawn.y != -1) {
+			return spawn;
+		}
+	}
+	return sf::Vector2i(-1, -1); // Return an invalid position if no spawn point is found
+}

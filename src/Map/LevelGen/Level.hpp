@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <SFML/Graphics.hpp>
 class Level
 {
 public:
@@ -16,6 +17,8 @@ public:
 	int getHeight();
 	void clearLevel(int section);
 	std::vector< std::vector<int>>& getDesign();
+	sf::Vector2i getPlayerSpawn();
+	
 
 private:
 	std::vector< std::vector<int> > level_layout;

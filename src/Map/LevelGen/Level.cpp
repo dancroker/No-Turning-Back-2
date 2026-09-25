@@ -104,3 +104,18 @@ std::vector<std::vector<int>>& Level::getDesign()
 {
     return level_layout;
 }
+
+sf::Vector2i Level::getPlayerSpawn()
+{
+    for (int y = 0; y < level_layout.size(); ++y)
+    {
+        for (int x = 0; x < level_layout[y].size(); ++x)
+        {
+            if (level_layout[y][x] == 3) // Assuming 3 represents the player spawn tile
+            {
+                return sf::Vector2i(x, y);
+            }
+        }
+    }
+    return sf::Vector2i(-1, -1); // Return a default position if no spawn point is found
+}

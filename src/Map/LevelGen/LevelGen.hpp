@@ -16,6 +16,7 @@ public:
 	std::vector< std::vector <int>>& getLevelLayout(int section, bool hidden);
 	int amountOfLevels();
 	void unlockHiddenLevelSection(int section);
+	sf::Vector2i getPlayerSpawn(int section);
 
 	std::vector<Level>& getMap();
 	std::vector<Level>& getHiddenMap(){return hidden_map;};

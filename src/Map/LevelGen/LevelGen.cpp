@@ -115,6 +115,24 @@ void LevelGen::unlockHiddenLevelSection(int section)
 	}
 }
 
+sf::Vector2i LevelGen::getPlayerSpawn(int section)
+{
+	sf::Vector2i spawn_position(-1, -1); // Default invalid position
+	for (Level& level : map)
+	{
+		if (section < map.size())
+		{
+			spawn_position = map[section].getPlayerSpawn();
+		}
+		else
+		{
+			std::cerr << "Error: Section index out of bounds." << std::endl;
+			return sf::Vector2i(-1, -1); // Return an invalid position
+		}
+	}
+	return spawn_position;
+}
+
 std::vector<Level>& LevelGen::getMap()
 {
 	return map;

@@ -19,6 +19,7 @@ public:
 	std::vector< std::vector <int>>& getLevelLayout(int section, bool hidden);
 	LevelGen& getLevelGen() { return level; };
 	float getTileSize() { return tile_size; };
+	sf::Vector2i getPlayerSpawn();
 private:
 	LevelGen level;
 	MapDraw map_draw;

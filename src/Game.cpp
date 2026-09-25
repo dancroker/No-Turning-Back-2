@@ -123,10 +123,9 @@ void Game::update(float dt)
 			if (selected != -1)
 			{
 				generateLevel(selected);
-				map.printMap();
 				current_game_state = GameState::IntroCutscene;
 			}
-			
+			sf::Vector2i player_spawn = map.getPlayerSpawn();
 			enter_key_pressed = true;
 		}
 		if (!input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
@@ -167,7 +166,7 @@ void Game::update(float dt)
 	case GameState::Playing:
 
 		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y});
-
+		std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			menu_music_sound.stop();
@@ -202,6 +201,11 @@ void Game::update(float dt)
 		}
 		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize());
 		map.starCollison(player.getHitbox().getGlobalBounds());
+		if (!player_spawned)
+		{
+			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
+			player_spawned = true;
+		}
 		break;
 	case GameState::IntroCutscene:
 		if (!enter_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
