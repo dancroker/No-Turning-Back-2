@@ -14,7 +14,7 @@ opening_animation_1("data/Frame1.png",1000,1000,15,0), opening_animation_2("data
 	opening_animation_2.setScale(scale_factor, scale_factor);
 	opening_animation_3.setScale(scale_factor, scale_factor);
 	opening_animation_4.setScale(scale_factor, scale_factor);
-}
+} 
 
 Game::~Game() {}
 
@@ -65,6 +65,7 @@ void Game::update(float dt)
 					player.jump();
 					break;
 				case CharacterAction::Interact:
+					player.MOVEUPPP();
 					break;
 				default:
 					break;

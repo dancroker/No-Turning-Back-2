@@ -17,7 +17,7 @@ public:
 
 	void init() override;
 	void update(float& gravity, std::vector<Level>& map, float tile_size);
-	void updateCollision(std::vector<Level>& map, float tile_size);
+	void updateCollision(std::vector<Level>& map, float tile_size, bool check_top);
 	
 	void centerCamera();
 
@@ -35,6 +35,8 @@ public:
 	void setSpeed(float new_speed);
 	float getJumpPower() const;
 	void setJumpPower(float new_jump_power);
+
+	void MOVEUPPP();
 	OwnSound sound;
 
 

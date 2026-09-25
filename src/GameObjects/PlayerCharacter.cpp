@@ -7,45 +7,55 @@ void PlayerCharacter::init()
 
 void PlayerCharacter::update(float& gravity, std::vector<Level>& map, float tile_size)
 {
-	updateCollision(map, tile_size);
-	hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
+	
+	syncSpriteWithHitbox();
+	centerCamera();
+	//hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
 
-	if (col_velocity.x != 0 || col_velocity.y != 0)
+
+	updateCollision(map, tile_size, true);
+
+	if (col_velocity.x == 0.f)
+	{
+		getHitbox().move({ velocity.x, 0.f });
+		std::cout << velocity.x << std::endl;
+	}
+	else
 	{
 		do
 		{
-			updateCollision(map, tile_size);
-			if (col_velocity.x != 0) 
-			{
-				getHitbox().move({ col_velocity.x, 0 });
-			}
+			getHitbox().move({ col_velocity.x, 0.f });
+			syncSpriteWithHitbox();
+			updateCollision(map, tile_size, true);
 		} while (col_velocity.x != 0);
+	}
+
+	updateCollision(map, tile_size, false);
+
+	if (col_velocity.y == 0.f)
+	{
+		getHitbox().move({ 0.f, velocity.y });
+		grounded = true;
+	}
+	else
+	{
 		do
 		{
-			updateCollision(map, tile_size);
-			if (col_velocity.y != 0)
-			{
-				getHitbox().move({0, col_velocity.y});
-			}
+			getHitbox().move({ 0.f, col_velocity.y });
+			syncSpriteWithHitbox();
+			grounded = false;
+			updateCollision(map, tile_size, false);
 		} while (col_velocity.y != 0);
 	}
-	std::cout << velocity.y << std::endl;
 
-	//hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
-	syncSpriteWithHitbox();
-	centerCamera();
+	// simple horizontal friction
+	velocity.x = (std::abs(velocity.x) < 0.1f) ? 0.f : velocity.x / 2.f;
 
-	applyGravity(gravity);
-	velocity.x = (velocity.x >= -0.1 && velocity.x <= 0.1) ? 0 : velocity.x / 2;
 }
 
-void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size)
+void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, bool check_top)
 {
-	bool touching_tile{ false };
-
-	///
 	col_velocity = { 0.f,0.f };
-	// 
 
 	int level_count = 0;
 
@@ -57,13 +67,18 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size)
 			{
 				float tile_y = (row_num * tile_size) + (level.getHeight() * tile_size) * level_count;
 				float tile_x = (col_num * tile_size);
-				float x = getHitbox().getPosition().x;
-				float y = getHitbox().getPosition().y;
-				float width = getHitbox().getGlobalBounds().size.x;
-				float height = getHitbox().getGlobalBounds().size.y;
-				// tile x - x os of tile on screen
-				// x * size of tile + account for levels beung ontop of each other (add tile size * 
-				///tile y - y tile pos on screen
+				float x = getSprite().getPosition().x;
+				float y = getSprite().getPosition().y;
+				float width = getSprite().getGlobalBounds().size.x;
+				float height = getSprite().getGlobalBounds().size.y / 2;
+				if (!check_top)
+				{
+					 x = getSprite().getPosition().x + getSprite().getGlobalBounds().size.x / 4;
+					 y = getSprite().getPosition().y-3;
+					 width = getSprite().getGlobalBounds().size.x / 2;
+					 height = getSprite().getGlobalBounds().size.y;
+				}
+				
 				if (level.getTile(col_num, row_num) == 1) // 1 == tile
 				{
 					if (x < tile_x + tile_size && x + width > tile_x && y < tile_y + tile_size && y + height > tile_y)
@@ -82,7 +97,6 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size)
 						{
 							//collison_move.y = -1;
 							col_velocity.y = -1;
-							touching_tile = true;
 						}
 						else
 						{
@@ -98,15 +112,6 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size)
 	}
 
 	///
-
-	if (touching_tile)
-	{
-		grounded = true;
-	}
-	else
-	{
-		grounded = false;
-	}
 }
 
 void PlayerCharacter::centerCamera()
@@ -132,7 +137,8 @@ void PlayerCharacter::jump()
 {
 	//if (grounded)
 	//{
-		velocity.y = -jump_power;
+		//velocity.y = -jump_power;
+	getHitbox().move({ 0.f,1.f });
 		//sound.loadPlaySound("data/jump.wav"); // Loading causes too much lag
 
 	//}
@@ -183,4 +189,9 @@ float PlayerCharacter::getJumpPower() const
 void PlayerCharacter::setJumpPower(float new_jump_power)
 {
 	jump_power = new_jump_power;
+}
+
+void PlayerCharacter::MOVEUPPP()
+{
+	getHitbox().move({ 0.f,-1.f });
 }
