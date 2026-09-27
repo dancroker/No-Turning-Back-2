@@ -53,13 +53,16 @@ void GameMap::spawn_stars()
 {
 	for (int i = 0; i < getLevelGen().amountOfLevels(); ++i) {
 		auto& design = getLevelGen().getLevelLayout(i, false); 
+		float section_height_pixels = static_cast<float>(design.size()) * tile_size;
 		for (size_t y = 0; y < design.size(); ++y) {
 			for (size_t x = 0; x < design[y].size(); ++x) {
 				int tile = design[y][x];
-				if (tile == 2) 
-				{
+				if (tile == 2) {
 					star_struct new_star(star_texture);
-					new_star.sprite.setPosition({ x * tile_size, y * tile_size });
+					float world_x = static_cast<float>(x) * tile_size;
+					float world_y = (static_cast<float>(i) * section_height_pixels) + (static_cast<float>(y) * tile_size);
+					new_star.sprite.setPosition(sf::Vector2f{ world_x, world_y });
+					new_star.level_section = i;
 					stars.push_back(new_star);
 				}
 			}

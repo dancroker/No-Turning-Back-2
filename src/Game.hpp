@@ -41,7 +41,7 @@ private:
 
 	std::unique_ptr<InputHandler> input_handler{ std::make_unique<InputHandler>() };
 
-	GameState current_game_state{ GameState::MainMenu };
+	GameState current_game_state{ GameState::MainMenu };  
 
 	sf::Font font_IBM_VGA_8x16{ "./data/fonts/MxPlus_IBM_VGA_8x16.ttf" };
 	sf::Text text_hello_world{ font_IBM_VGA_8x16 };
