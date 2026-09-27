@@ -184,6 +184,11 @@ void Game::update(float dt)
 			riser_sound.stop();
 		}
 
+		if (player.getSprite().getPosition().y < -5)
+		{
+			std::cout << "Win!";
+		}
+
 		if (!input_handler->getActiveCharacterActions().empty())
 		{
 			for (CharacterAction action : input_handler->getActiveCharacterActions())
@@ -269,6 +274,7 @@ void Game::render()
 		//window.draw(player.getSprite());
 		window.draw(sprite_john);
 		map.draw_map(window);
+		std::cout << "(" << player.getHitbox().getPosition().x << "," << player.getHitbox().getPosition().x << ")" << std::endl;
 
 		//player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window); //remove
 		

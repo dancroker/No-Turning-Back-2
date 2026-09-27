@@ -149,6 +149,7 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 
 	int level_count = 0;
 
+
 	for (Level& level : map)
 	{
 		for (int row_num{ 0 }; row_num < level.getHeight(); row_num++)
@@ -214,7 +215,7 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 							//collison_move.y = 1;
 							col_velocity.y = 1;
 						}
-						std::cout << col_velocity.x << "," << col_velocity.y << std::endl;
+						//std::cout << col_velocity.x << "," << col_velocity.y << std::endl;
 					}
 				}
 			}
@@ -286,7 +287,7 @@ void PlayerCharacter::jump()
 		//getHitbox().move({ 0.f,1.f });
 		//sound.loadPlaySound("data/jump.wav"); // Loading causes too much lag
 
-		printf("jumping\n");
+		//printf("jumping\n");
 		velocity.y = -jump_power / 3;
 		grounded = false;
 	} else {
@@ -298,12 +299,12 @@ void PlayerCharacter::applyGravity(float& gravity)
 {
 	if (!grounded)
 	{	
-		printf("not grounded\n");
+		//printf("not grounded\n");
 		velocity.y += 1;
 	}
 	else {
 		velocity.y = 0;
-		printf("grounded\n");
+		//printf("grounded\n");
 	}
 	//else if (grounded)
 	//{
