@@ -18,8 +18,9 @@ public:
 	~PlayerCharacter();
 
 	void init() override;
-	void update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size);
-	void updateCollision(std::vector<Level>& map, float tile_size, bool check_top);
+	void update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size, sf::RenderWindow& window);
+	void updateCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window);
+	void MapSegmentCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window);
 	
 	void centerCamera();
 
@@ -49,6 +50,9 @@ private:
 	bool grounded{ false };
 	float speed{ 50.f };
 	float jump_power{ 50.f };
+
+	bool can_move_horizontally = true;
+	bool can_move_vertically = true;
 	
 	sf::SoundBuffer jump_sfx_sound_buffer;
 	sf::Sound jump_sfx_sound;

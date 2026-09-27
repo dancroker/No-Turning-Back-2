@@ -15,57 +15,135 @@ void PlayerCharacter::init()
 	player_camera->setSize(sf::Vector2f{ 1080, 720 });
 }
 
-void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size)
+void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size, sf::RenderWindow& window)
 {
 	
 	syncSpriteWithHitbox();
 	centerCamera();
 	//hitbox->setPosition(sf::Vector2f{ hitbox->getPosition().x + velocity.x, hitbox->getPosition().y + velocity.y });
 
+	can_move_vertically = true;
+	can_move_horizontally = true;
+	grounded = false;
 
-	updateCollision(map, tile_size, true);
-
-	if (col_velocity.x == 0.f)
+	updateCollision(map, tile_size, 0, window);
+	if (col_velocity.y != 0.f)
 	{
-		getHitbox().move({ velocity.x, 0.f });
-		std::cout << velocity.x << std::endl;
-	}
-	else
-	{
-		do
-		{
-			getHitbox().move({ col_velocity.x, 0.f });
-			syncSpriteWithHitbox();
-			updateCollision(map, tile_size, true);
-		} while (col_velocity.x != 0);
-	}
+		getHitbox().move({ 0.f, 1.0f });
+		can_move_vertically = false;
 
-	updateCollision(map, tile_size, false);
-
-	if (col_velocity.y == 0.f) // 
-	{
-		getHitbox().move({ 0.f, velocity.y });
-		grounded = false;
 	}
-	else
+	//---
+	updateCollision(hidden_map, tile_size, 0, window);
+	if (col_velocity.y != 0.f)
 	{
-		do
-		{
-			getHitbox().move({ 0.f, col_velocity.y });
-			syncSpriteWithHitbox();
-			grounded = true;
-			updateCollision(map, tile_size, false);
-		} while (col_velocity.y != 0);
-	}
+		getHitbox().move({ 0.f, 1.0f });
+		can_move_vertically = false;
 
-	applyGravity(gravity);
+	}
+	//-------------------
+	updateCollision(map, tile_size, 1, window);
+	if (col_velocity.y != 0.f)
+	{
+		getHitbox().move({ 0.f, -1.0f });
+		grounded = true;
+		can_move_vertically = false;
+	}
+	//---
+	updateCollision(hidden_map, tile_size, 1, window);
+	if (col_velocity.y != 0.f)
+	{
+		getHitbox().move({ 0.f, -1.0f });
+		grounded = true;
+		can_move_vertically = false;
+	}
+	//-----------------------------
+	updateCollision(map, tile_size, 2, window);
+	if (col_velocity.x != 0.f)
+	{
+		getHitbox().move({ -1.0f,0.f });
+		can_move_horizontally = false;
+	}
+	//---
+	updateCollision(hidden_map, tile_size, 2, window);
+	if (col_velocity.x != 0.f)
+	{
+		getHitbox().move({ -1.0f,0.f });
+		can_move_horizontally = false;
+	}
+	//------------------------------
+	updateCollision(map, tile_size, 3, window);
+	if (col_velocity.x != 0.f)
+	{
+		getHitbox().move({ 1.0f,0.f });
+		can_move_horizontally = false;
+	}
+	//-----
+	updateCollision(hidden_map, tile_size, 3, window);
+	if (col_velocity.x != 0.f)
+	{
+		getHitbox().move({ 1.0f,0.f });
+		can_move_horizontally = false;
+	}
+	//----------------------------------
+	syncSpriteWithHitbox();
+		
+		
+	//} while (can_move_horizontally == false || can_move_vertically == false);
+     applyGravity(gravity);
+	 if (can_move_horizontally)
+	 {
+		 getHitbox().move({ velocity.x, 0.f });
+	 }
+	 if (can_move_vertically)
+	 {
+		 getHitbox().move({ 0.f, velocity.y });
+	 }
 
 	// simple horizontal friction
 	velocity.x = (std::abs(velocity.x) < 0.1f) ? 0.f : velocity.x / 2.f;
 
+	//if (col_velocity.x == 0.f)
+	//{
+	//	getHitbox().move({ velocity.x, 0.f });
+	//	std::cout << velocity.x << std::endl;
+	//}
+	//else
+	//{
+	//	do
+	//	{
+	//		getHitbox().move({ col_velocity.x, 0.f });
+	//		syncSpriteWithHitbox();
+	//		updateCollision(map, tile_size, true,window);
+	//	} while (col_velocity.x != 0);
+	//}
+
+	//updateCollision(map, tile_size, false,window);
+
+	//if (col_velocity.y == 0.f) // 
+	//{
+	//	getHitbox().move({ 0.f, velocity.y });
+	//	grounded = false;
+	//}
+	//else
+	//{
+	//	do
+	//	{
+	//		getHitbox().move({ 0.f, col_velocity.y });
+	//		syncSpriteWithHitbox();
+	//		grounded = true;
+	//		updateCollision(map, tile_size, false,window);
+	//	} while (col_velocity.y != 0);
+	//}
+
+	//applyGravity(gravity);
+
+	//// simple horizontal friction
+	//velocity.x = (std::abs(velocity.x) < 0.1f) ? 0.f : velocity.x / 2.f;
+
 }
 
-void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, bool check_top)
+void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window)
 {
 	col_velocity = { 0.f,0.f };
 
@@ -77,20 +155,41 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 		{
 			for (int col_num{ 0 }; col_num < level.getWidth(); col_num++)
 			{
+				//top
 				float tile_y = (row_num * tile_size) + (level.getHeight() * tile_size) * level_count;
 				float tile_x = (col_num * tile_size);
-				float x = getSprite().getPosition().x;
-				float y = getSprite().getPosition().y;
-				float width = getSprite().getGlobalBounds().size.x;
-				float height = getSprite().getGlobalBounds().size.y / 2;
-				if (!check_top)
+				float width = getHitbox().getGlobalBounds().size.x/3;
+				float height = getHitbox().getGlobalBounds().size.y / 2;
+				float x = getHitbox().getPosition().x + width + 2;
+				float y = getHitbox().getPosition().y;
+
+				//bottom
+				if (check == 1)
 				{
-					 x = getSprite().getPosition().x + getSprite().getGlobalBounds().size.x / 4;
-					 y = getSprite().getPosition().y;
-					 width = getSprite().getGlobalBounds().size.x / 2;
-					 height = getSprite().getGlobalBounds().size.y;
+					width = getHitbox().getGlobalBounds().size.x / 3;
+					height = getHitbox().getGlobalBounds().size.y / 2;
+					x = getHitbox().getPosition().x + width + 2;
+					y = getHitbox().getPosition().y + height;
 				}
-				
+				//right
+				if (check == 2)
+				{
+					width = getHitbox().getGlobalBounds().size.x / 2;
+					height = getHitbox().getGlobalBounds().size.y / 3;
+					x = getHitbox().getPosition().x + width + 2;
+					y = getHitbox().getPosition().y + height;
+				}
+				//left
+				if (check == 3)
+				{
+					width = getHitbox().getGlobalBounds().size.x / 2;
+					height = getHitbox().getGlobalBounds().size.y / 3;
+					x = getHitbox().getPosition().x;
+					y = getHitbox().getPosition().y + height;
+				}
+				sf::RectangleShape player_rect(sf::Vector2f{ width, height });
+				player_rect.setPosition(sf::Vector2f{ x, y });
+				window.draw(player_rect);
 				if (level.getTile(col_num, row_num) == 1) // 1 == tile
 				{
 					if (x < tile_x + tile_size && x + width > tile_x && y < tile_y + tile_size && y + height > tile_y)
@@ -123,7 +222,42 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 		level_count++;
 	}
 
-	///
+	
+}
+
+void PlayerCharacter::MapSegmentCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window)
+{
+	updateCollision(map, tile_size, 0, window);
+	if (col_velocity.y != 0.f)
+	{
+		getHitbox().move({ 0.f, 1.0f });
+		can_move_vertically = false;
+
+	}
+	updateCollision(map, tile_size, 1, window);
+	if (col_velocity.y != 0.f)
+	{
+		getHitbox().move({ 0.f, -1.0f });
+		grounded = true;
+		can_move_vertically = false;
+	}
+	else
+	{
+		grounded = false;
+	}
+	updateCollision(map, tile_size, 2, window);
+	if (col_velocity.x != 0.f)
+	{
+		getHitbox().move({ -1.0f,0.f });
+		can_move_horizontally = false;
+	}
+	updateCollision(map, tile_size, 3, window);
+	if (col_velocity.x != 0.f)
+	{
+		getHitbox().move({ 1.0f,0.f });
+		can_move_horizontally = false;
+	}
+	syncSpriteWithHitbox();
 }
 
 void PlayerCharacter::centerCamera()

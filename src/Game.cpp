@@ -209,7 +209,7 @@ void Game::update(float dt)
 				}
 			}
 		}
-		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize());
+		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		map.starCollison(player.getHitbox().getGlobalBounds());
 		if (!player_spawned)
 		{
@@ -269,6 +269,8 @@ void Game::render()
 		//window.draw(player.getSprite());
 		window.draw(sprite_john);
 		map.draw_map(window);
+
+		//player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window); //remove
 		
 		break;
 	case GameState::Paused:
