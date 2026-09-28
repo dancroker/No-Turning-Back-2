@@ -14,7 +14,7 @@ public:
 	void update();
 	int keyPressed(int direction); // 0 = up, 1 = down, 2 = left, 3 = right, 4 = enter, 5 = escape
 	void KeyReleased(sf::Event event);
-
+	void increaseLevelsUnlocked() { LevelsUnlocked += 1; };
 	void setMenuSelection(int selection);
 	int getMenuSelection();
 

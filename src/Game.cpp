@@ -88,6 +88,7 @@ void Game::update(float dt)
 		{
 			current_game_state = GameState::SelectLevel;
 			enter_key_pressed = true;
+			player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		}
 
 		if (!s_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::S))
@@ -134,6 +135,7 @@ void Game::update(float dt)
 			{
 				generateLevel(selected);
 				current_game_state = GameState::IntroCutscene;
+				player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
 			}
 			sf::Vector2i player_spawn = map.getPlayerSpawn();
 			enter_key_pressed = true;
@@ -174,7 +176,11 @@ void Game::update(float dt)
 		select_level_menu.update();
 		break;
 	case GameState::Playing:
-
+		if (!player_spawned)
+		{
+			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
+			player_spawned = true;
+		}
 		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y});
 		std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
@@ -187,6 +193,9 @@ void Game::update(float dt)
 		if (player.getSprite().getPosition().y < -5)
 		{
 			std::cout << "Win!";
+			select_level_menu.increaseLevelsUnlocked();
+			current_game_state = GameState::MainMenu;
+			player_spawned = false;
 		}
 
 		if (!input_handler->getActiveCharacterActions().empty())
@@ -216,11 +225,6 @@ void Game::update(float dt)
 		}
 		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		map.starCollison(player.getHitbox().getGlobalBounds());
-		if (!player_spawned)
-		{
-			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
-			player_spawned = true;
-		}
 		break;
 	case GameState::IntroCutscene:
 		if (!enter_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
