@@ -176,13 +176,21 @@ void Game::update(float dt)
 		select_level_menu.update();
 		break;
 	case GameState::Playing:
+	{
+		sf::Vector2f death = { 0.f, static_cast<float>(map.getMapSize() * 12 * 64) + 300.f };
+		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Escape) || player.getPosition().y > death.y)
+		{
+			current_game_state = GameState::MainMenu;
+			player_spawned = false;
+		}
+
 		if (!player_spawned)
 		{
 			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
 			player_spawned = true;
 			player.syncSpriteWithHitbox();
 		}
-		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y});
+		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y });
 		//std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
 		{
@@ -227,6 +235,7 @@ void Game::update(float dt)
 		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		map.starCollison(player.getHitbox().getGlobalBounds());
 		break;
+	}
 	case GameState::IntroCutscene:
 		if (!enter_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
 		{
