@@ -19,7 +19,7 @@ public:
 
 	void init() override;
 	void update(float& gravity, std::vector<Level>& map, std::vector<Level>& hidden_map, float tile_size, sf::RenderWindow& window);
-	void updateCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window);
+	void updateCollision(std::vector<Level>& map, float tile_size, float box_x, float box_y, int check, sf::RenderWindow& window);
 	void MapSegmentCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window);
 	
 	void centerCamera();
@@ -39,6 +39,8 @@ public:
 	float getJumpPower() const;
 	void setJumpPower(float new_jump_power);
 	void setPosition(const sf::Vector2f& new_position) { hitbox->setPosition(new_position); }
+	sf::Vector2f getPosition() { return hitbox->getPosition(); }
+	sf::FloatRect getGlobalBounds() { return hitbox->getGlobalBounds(); }
 
 	void MOVEUPPP();
 

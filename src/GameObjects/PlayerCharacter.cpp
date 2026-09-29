@@ -26,66 +26,106 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 	can_move_horizontally = true;
 	grounded = false;
 
-	updateCollision(map, tile_size, 0, window);
-	if (col_velocity.y != 0.f)
+	int level_count = 0;
+	for (Level& level : map)
 	{
-		getHitbox().move({ 0.f, 1.0f });
-		can_move_vertically = false;
+		for (int row_num{ 0 }; row_num < level.getHeight(); row_num++)
+		{
+			for (int col_num{ 0 }; col_num < level.getWidth(); col_num++)
+			{
+				float tile_y = (row_num * tile_size) + (level.getHeight() * tile_size) * level_count;
+				float tile_x = (col_num * tile_size);
+				sf::FloatRect box = { {tile_x,tile_y},{tile_size,tile_size} };
+				if (level.getTile(col_num, row_num) == 1) {
+					if (getGlobalBounds().findIntersection(box))
+					{
+						updateCollision(map, tile_size, box.position.x, box.position.y, 0, window);
+						if (col_velocity.y != 0.f)
+						{
+							getHitbox().move({ 0.f, 1.0f });
+							can_move_vertically = false;
 
-	}
-	//---
-	updateCollision(hidden_map, tile_size, 0, window);
-	if (col_velocity.y != 0.f)
-	{
-		getHitbox().move({ 0.f, 1.0f });
-		can_move_vertically = false;
+						}
+						updateCollision(map, tile_size, box.position.x, box.position.y, 1, window);
+						if (col_velocity.y != 0.f)
+						{
+							getHitbox().move({ 0.f, -1.0f });
+							grounded = true;
+							can_move_vertically = false;
+						}
+						updateCollision(map, tile_size, box.position.x, box.position.y, 2, window);
+						if (col_velocity.x != 0.f)
+						{
+							getHitbox().move({ -1.0f,0.f });
+							can_move_horizontally = false;
+						}
+						updateCollision(map, tile_size, box.position.x, box.position.y, 3, window);
+						if (col_velocity.x != 0.f)
+						{
+							getHitbox().move({ 1.0f,0.f });
+							can_move_horizontally = false;
+						}
 
+					}
+				}
+
+			}
+		}
+		level_count++;
 	}
-	//-------------------
-	updateCollision(map, tile_size, 1, window);
-	if (col_velocity.y != 0.f)
+
+	level_count = 0;
+	for (Level& level : hidden_map)
 	{
-		getHitbox().move({ 0.f, -1.0f });
-		grounded = true;
-		can_move_vertically = false;
+		for (int row_num{ 0 }; row_num < level.getHeight(); row_num++)
+		{
+			for (int col_num{ 0 }; col_num < level.getWidth(); col_num++)
+			{
+				float tile_y = (row_num * tile_size) + (level.getHeight() * tile_size) * level_count;
+				float tile_x = (col_num * tile_size);
+				sf::FloatRect box = { {tile_x,tile_y},{tile_size,tile_size} };
+				if (level.getTile(col_num, row_num) == 1) {
+					if (getGlobalBounds().findIntersection(box))
+					{
+						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 0, window);
+						if (col_velocity.y != 0.f)
+						{
+							getHitbox().move({ 0.f, 1.0f });
+							can_move_vertically = false;
+
+						}
+						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 1, window);
+						if (col_velocity.y != 0.f)
+						{
+							getHitbox().move({ 0.f, -1.0f });
+							grounded = true;
+							can_move_vertically = false;
+						}
+						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 2, window);
+						if (col_velocity.x != 0.f)
+						{
+							getHitbox().move({ -1.0f,0.f });
+							can_move_horizontally = false;
+						}
+						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 3, window);
+						if (col_velocity.x != 0.f)
+						{
+							getHitbox().move({ 1.0f,0.f });
+							can_move_horizontally = false;
+						}
+
+					}
+				}
+
+			}
+		}
+		level_count++;
 	}
-	//---
-	updateCollision(hidden_map, tile_size, 1, window);
-	if (col_velocity.y != 0.f)
-	{
-		getHitbox().move({ 0.f, -1.0f });
-		grounded = true;
-		can_move_vertically = false;
-	}
-	//-----------------------------
-	updateCollision(map, tile_size, 2, window);
-	if (col_velocity.x != 0.f)
-	{
-		getHitbox().move({ -1.0f,0.f });
-		can_move_horizontally = false;
-	}
-	//---
-	updateCollision(hidden_map, tile_size, 2, window);
-	if (col_velocity.x != 0.f)
-	{
-		getHitbox().move({ -1.0f,0.f });
-		can_move_horizontally = false;
-	}
-	//------------------------------
-	updateCollision(map, tile_size, 3, window);
-	if (col_velocity.x != 0.f)
-	{
-		getHitbox().move({ 1.0f,0.f });
-		can_move_horizontally = false;
-	}
-	//-----
-	updateCollision(hidden_map, tile_size, 3, window);
-	if (col_velocity.x != 0.f)
-	{
-		getHitbox().move({ 1.0f,0.f });
-		can_move_horizontally = false;
-	}
-	//----------------------------------
+
+
+	
+
+
 	syncSpriteWithHitbox();
 		
 		
@@ -143,22 +183,22 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 
 }
 
-void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window)
+void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, float box_x, float box_y, int check, sf::RenderWindow& window)
 {
 	col_velocity = { 0.f,0.f };
 
 	int level_count = 0;
 
 
-	for (Level& level : map)
-	{
-		for (int row_num{ 0 }; row_num < level.getHeight(); row_num++)
-		{
-			for (int col_num{ 0 }; col_num < level.getWidth(); col_num++)
-			{
+	//for (Level& level : map)
+	//{
+	//	for (int row_num{ 0 }; row_num < level.getHeight(); row_num++)
+	//	{
+	//		for (int col_num{ 0 }; col_num < level.getWidth(); col_num++)
+	//		{
 				//top
-				float tile_y = (row_num * tile_size) + (level.getHeight() * tile_size) * level_count;
-				float tile_x = (col_num * tile_size);
+				float tile_y = box_y;
+				float tile_x = box_x;
 				float width = getHitbox().getGlobalBounds().size.x/3;
 				float height = getHitbox().getGlobalBounds().size.y / 2;
 				float x = getHitbox().getPosition().x + width + 2;
@@ -191,8 +231,8 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 				sf::RectangleShape player_rect(sf::Vector2f{ width, height });
 				player_rect.setPosition(sf::Vector2f{ x, y });
 				window.draw(player_rect);
-				if (level.getTile(col_num, row_num) == 1) // 1 == tile
-				{
+				//if (level.getTile(col_num, row_num) == 1) // 1 == tile
+				//{
 					if (x < tile_x + tile_size && x + width > tile_x && y < tile_y + tile_size && y + height > tile_y)
 					{
 						if (x < tile_x + tile_size / 2 && x + width > tile_x)
@@ -217,48 +257,48 @@ void PlayerCharacter::updateCollision(std::vector<Level>& map, float tile_size, 
 						}
 						//std::cout << col_velocity.x << "," << col_velocity.y << std::endl;
 					}
-				}
-			}
-		}
-		level_count++;
-	}
+				//}
+			//}
+		//}
+		//level_count++;
+	///}
 
 	
 }
 
 void PlayerCharacter::MapSegmentCollision(std::vector<Level>& map, float tile_size, int check, sf::RenderWindow& window)
 {
-	updateCollision(map, tile_size, 0, window);
-	if (col_velocity.y != 0.f)
-	{
-		getHitbox().move({ 0.f, 1.0f });
-		can_move_vertically = false;
+	//updateCollision(map, tile_size, 0, window);
+	//if (col_velocity.y != 0.f)
+	//{
+	//	getHitbox().move({ 0.f, 1.0f });
+	//	can_move_vertically = false;
 
-	}
-	updateCollision(map, tile_size, 1, window);
-	if (col_velocity.y != 0.f)
-	{
-		getHitbox().move({ 0.f, -1.0f });
-		grounded = true;
-		can_move_vertically = false;
-	}
-	else
-	{
-		grounded = false;
-	}
-	updateCollision(map, tile_size, 2, window);
-	if (col_velocity.x != 0.f)
-	{
-		getHitbox().move({ -1.0f,0.f });
-		can_move_horizontally = false;
-	}
-	updateCollision(map, tile_size, 3, window);
-	if (col_velocity.x != 0.f)
-	{
-		getHitbox().move({ 1.0f,0.f });
-		can_move_horizontally = false;
-	}
-	syncSpriteWithHitbox();
+	//}
+	//updateCollision(map, tile_size, 1, window);
+	//if (col_velocity.y != 0.f)
+	//{
+	//	getHitbox().move({ 0.f, -1.0f });
+	//	grounded = true;
+	//	can_move_vertically = false;
+	//}
+	//else
+	//{
+	//	grounded = false;
+	//}
+	//updateCollision(map, tile_size, 2, window);
+	//if (col_velocity.x != 0.f)
+	//{
+	//	getHitbox().move({ -1.0f,0.f });
+	//	can_move_horizontally = false;
+	//}
+	//updateCollision(map, tile_size, 3, window);
+	//if (col_velocity.x != 0.f)
+	//{
+	//	getHitbox().move({ 1.0f,0.f });
+	//	can_move_horizontally = false;
+	//}
+	//syncSpriteWithHitbox();
 }
 
 void PlayerCharacter::centerCamera()
