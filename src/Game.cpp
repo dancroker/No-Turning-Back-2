@@ -180,9 +180,10 @@ void Game::update(float dt)
 		{
 			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
 			player_spawned = true;
+			player.syncSpriteWithHitbox();
 		}
 		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y});
-		std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
+		//std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			menu_music_sound.stop();
@@ -278,7 +279,7 @@ void Game::render()
 		//window.draw(player.getSprite());
 		window.draw(sprite_john);
 		map.draw_map(window);
-		std::cout << "(" << player.getHitbox().getPosition().x << "," << player.getHitbox().getPosition().x << ")" << std::endl;
+		//std::cout << "(" << player.getHitbox().getPosition().x << "," << player.getHitbox().getPosition().x << ")" << std::endl;
 
 		//player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window); //remove
 		
