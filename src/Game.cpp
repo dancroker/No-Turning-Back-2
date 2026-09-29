@@ -49,6 +49,11 @@ bool Game::init()
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
 
+	controls_text.setString("CONTROLS:\n[W/A/S/D] - Move\n [SPACE] - Jump \n [ESC] - Return");
+
+	score_title_text.setString("SCORE:");
+	score_title_text.setPosition(sf::Vector2f{ 0.f, 100.f });
+
 	player.init();
 	player.getSprite().setTexture(texture_player);
 	player.getHitbox().setFillColor(sf::Color::Magenta);
@@ -88,6 +93,7 @@ void Game::update(float dt)
 		{
 			current_game_state = GameState::SelectLevel;
 			enter_key_pressed = true;
+			player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		}
 
 		if (!s_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::S))
@@ -134,6 +140,7 @@ void Game::update(float dt)
 			{
 				generateLevel(selected);
 				current_game_state = GameState::IntroCutscene;
+				player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
 			}
 			sf::Vector2i player_spawn = map.getPlayerSpawn();
 			enter_key_pressed = true;
@@ -174,14 +181,42 @@ void Game::update(float dt)
 		select_level_menu.update();
 		break;
 	case GameState::Playing:
+	{
+		sf::Vector2f death = { 0.f, static_cast<float>(map.getMapSize() * 12 * 64) + 300.f };
+		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Escape) || player.getPosition().y > death.y)
+		{
+			current_game_state = GameState::MainMenu;
+			player_spawned = false;
+		}
 
-		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y});
-		std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
+		if (!player_spawned)
+		{
+			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
+			player_spawned = true;
+			player.syncSpriteWithHitbox();
+			score = max_score;
+		}
+
+		if(score > 0)
+		{
+			score--;
+		}
+
+		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y });
+		//std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			menu_music_sound.stop();
 			game_music_sound.play();
 			riser_sound.stop();
+		}
+
+		if (player.getSprite().getPosition().y < -5)
+		{
+			std::cout << "Win!";
+			select_level_menu.increaseLevelsUnlocked();
+			current_game_state = GameState::MainMenu;
+			player_spawned = false;
 		}
 
 		if (!input_handler->getActiveCharacterActions().empty())
@@ -209,14 +244,11 @@ void Game::update(float dt)
 				}
 			}
 		}
-		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize());
+		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		map.starCollison(player.getHitbox().getGlobalBounds());
-		if (!player_spawned)
-		{
-			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
-			player_spawned = true;
-		}
+
 		break;
+	}
 	case GameState::IntroCutscene:
 		if (!enter_key_pressed && input_handler->checkKeysPressed(sf::Keyboard::Scancode::Enter))
 		{
@@ -260,17 +292,34 @@ void Game::render()
 	case GameState::SelectLevel:
 		select_level_menu.render(window);
 		break;
-	case GameState::Playing:
+	case GameState::Playing: {
 		window.draw(sprite_gameplay_background);
 		window.draw(sprite_side_background);
 		window.setView(player.getPlayerCamera());
+
+
 		//window.draw(sprite_sfml_logo);
 		//window.draw(player.getHitbox());
 		//window.draw(player.getSprite());
 		window.draw(sprite_john);
 		map.draw_map(window);
-		
+		//std::cout << "(" << player.getHitbox().getPosition().x << "," << player.getHitbox().getPosition().x << ")" << std::endl;
+
+		sf::Vector2f cam = player.getPlayerCamera().getCenter() - player.getPlayerCamera().getSize() / 2.f;
+		score_title_text.setPosition(sf::Vector2f{ cam.x+900, cam.y+280 });
+		score_title_text.setFillColor(sf::Color::White);
+		window.draw(score_title_text);
+		score_text.setString(std::to_string(score));
+		score_text.setPosition(sf::Vector2f{ cam.x + 910, cam.y + 310 });
+		score_text.setFillColor(sf::Color::White);
+		window.draw(score_text);
+		controls_text.setPosition({ cam.x + 10, cam.y + 350 });
+		window.draw(controls_text);
+
+		//player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window); //remove
+
 		break;
+	}
 	case GameState::Paused:
 		break;
 	case GameState::GameOver:

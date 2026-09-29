@@ -50,9 +50,10 @@ target_link_libraries(game PRIVATE
 
 
 # ASSETS
-  add_custom_command(TARGET game POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/data/" "$<TARGET_FILE_DIR:game>/data/"
-  )
+add_custom_command(TARGET game POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E rm -rf "$<TARGET_FILE_DIR:game>/data/"
+  COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/data/" "$<TARGET_FILE_DIR:game>/data/"
+)
 
 # -- im only gonna add this when needed --
 
