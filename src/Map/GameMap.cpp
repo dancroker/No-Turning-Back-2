@@ -51,6 +51,8 @@ int GameMap::getMapSize()
 
 void GameMap::spawn_stars()
 {
+	if (stars.size() > 0)
+		stars.clear();
 	for (int i = 0; i < getLevelGen().amountOfLevels(); ++i) {
 		auto& design = getLevelGen().getLevelLayout(i, false); 
 		float section_height_pixels = static_cast<float>(design.size()) * tile_size;

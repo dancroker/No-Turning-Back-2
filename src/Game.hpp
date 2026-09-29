@@ -79,6 +79,11 @@ private:
 	AnimationManager opening_animation_3;
 	AnimationManager opening_animation_4;
 
+	int score = 0;
+	int max_score = 9999;
+	sf::Text score_title_text{ font_IBM_VGA_8x16 };
+	sf::Text score_text{ font_IBM_VGA_8x16 };
+
 	sf::SoundBuffer menu_music_sound_buffer;
 	sf::Sound menu_music_sound;
 

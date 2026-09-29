@@ -128,6 +128,9 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 
 	syncSpriteWithHitbox();
 		
+
+	if (velocity.y < max_y_speed)
+		velocity.y = max_y_speed;
 		
 	//} while (can_move_horizontally == false || can_move_vertically == false);
      applyGravity(gravity);

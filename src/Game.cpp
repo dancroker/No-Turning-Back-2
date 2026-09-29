@@ -49,6 +49,9 @@ bool Game::init()
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
 
+	score_title_text.setString("SCORE:");
+	score_title_text.setPosition(sf::Vector2f{ 0.f, 100.f });
+
 	player.init();
 	player.getSprite().setTexture(texture_player);
 	player.getHitbox().setFillColor(sf::Color::Magenta);
@@ -189,7 +192,14 @@ void Game::update(float dt)
 			player.setPosition(sf::Vector2f{ 0.f, static_cast<float>(map.getMapSize() * 12 * 64) - 200.f });
 			player_spawned = true;
 			player.syncSpriteWithHitbox();
+			score = max_score;
 		}
+
+		if(score > 0)
+		{
+			score--;
+		}
+
 		sprite_john.setPosition(sf::Vector2f{ player.getHitbox().getPosition().x + 7, player.getHitbox().getPosition().y });
 		//std::cout << player.getSprite().getPosition().x << "," << player.getSprite().getPosition().y << std::endl;
 		if (game_music_sound.getStatus() == sf::SoundSource::Status::Stopped)
@@ -234,6 +244,7 @@ void Game::update(float dt)
 		}
 		player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window);
 		map.starCollison(player.getHitbox().getGlobalBounds());
+
 		break;
 	}
 	case GameState::IntroCutscene:
@@ -279,10 +290,12 @@ void Game::render()
 	case GameState::SelectLevel:
 		select_level_menu.render(window);
 		break;
-	case GameState::Playing:
+	case GameState::Playing: {
 		window.draw(sprite_gameplay_background);
 		window.draw(sprite_side_background);
 		window.setView(player.getPlayerCamera());
+
+
 		//window.draw(sprite_sfml_logo);
 		//window.draw(player.getHitbox());
 		//window.draw(player.getSprite());
@@ -290,9 +303,19 @@ void Game::render()
 		map.draw_map(window);
 		//std::cout << "(" << player.getHitbox().getPosition().x << "," << player.getHitbox().getPosition().x << ")" << std::endl;
 
+		sf::Vector2f cam = player.getPlayerCamera().getCenter() - player.getPlayerCamera().getSize() / 2.f;
+		score_title_text.setPosition(sf::Vector2f{ cam.x+900, cam.y+280 });
+		score_title_text.setFillColor(sf::Color::White);
+		window.draw(score_title_text);
+		score_text.setString(std::to_string(score));
+		score_text.setPosition(sf::Vector2f{ cam.x + 910, cam.y + 310 });
+		score_text.setFillColor(sf::Color::White);
+		window.draw(score_text);
+
 		//player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window); //remove
-		
+
 		break;
+	}
 	case GameState::Paused:
 		break;
 	case GameState::GameOver:
