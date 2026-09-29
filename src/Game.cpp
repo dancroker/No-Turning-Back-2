@@ -49,6 +49,8 @@ bool Game::init()
 	text_enter.setString("[Press ENTER to start]");
 	text_enter.setPosition(sf::Vector2f{ 0.f, 100.f });
 
+	controls_text.setString("CONTROLS:\n[W/A/S/D] - Move\n [SPACE] - Jump \n [ESC] - Return");
+
 	score_title_text.setString("SCORE:");
 	score_title_text.setPosition(sf::Vector2f{ 0.f, 100.f });
 
@@ -311,6 +313,8 @@ void Game::render()
 		score_text.setPosition(sf::Vector2f{ cam.x + 910, cam.y + 310 });
 		score_text.setFillColor(sf::Color::White);
 		window.draw(score_text);
+		controls_text.setPosition({ cam.x + 10, cam.y + 350 });
+		window.draw(controls_text);
 
 		//player.update(gravity, map.getLevelGen().getMap(), map.getLevelGen().getHiddenMap(), map.getTileSize(), window); //remove
 

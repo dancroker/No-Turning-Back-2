@@ -81,6 +81,11 @@ private:
 
 	int score = 0;
 	int max_score = 9999;
+
+	sf::Text controls_text{ font_IBM_VGA_8x16 };
+	//sf::Text score_text{ font_IBM_VGA_8x16 };
+
+
 	sf::Text score_title_text{ font_IBM_VGA_8x16 };
 	sf::Text score_text{ font_IBM_VGA_8x16 };
 

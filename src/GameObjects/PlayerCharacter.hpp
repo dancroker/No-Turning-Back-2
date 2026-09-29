@@ -53,7 +53,7 @@ private:
 	float speed{ 50.f };
 	float jump_power{ 50.f };
 
-	float max_y_speed{ -20.f };
+	float max_y_speed{ -19.f };
 
 	bool can_move_horizontally = true;
 	bool can_move_vertically = true;
