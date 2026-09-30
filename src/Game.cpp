@@ -72,6 +72,7 @@ bool Game::init()
 	main_menu_screen.init();
 	select_level_menu.init();
 
+	player.setSpeed(player.getSpeed()/2);
 
 
 	return true;
