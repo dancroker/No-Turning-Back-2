@@ -57,6 +57,8 @@ private:
 
 	bool can_move_horizontally = true;
 	bool can_move_vertically = true;
+
+	bool col_moved_up = false;
 	
 	sf::SoundBuffer jump_sfx_sound_buffer;
 	sf::Sound jump_sfx_sound;

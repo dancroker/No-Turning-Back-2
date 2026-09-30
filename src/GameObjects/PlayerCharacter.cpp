@@ -25,6 +25,7 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 	can_move_vertically = true;
 	can_move_horizontally = true;
 	grounded = false;
+	col_moved_up = false;
 
 	int level_count = 0;
 	for (Level& level : map)
@@ -39,19 +40,21 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 				if (level.getTile(col_num, row_num) == 1) {
 					if (getGlobalBounds().findIntersection(box))
 					{
-						updateCollision(map, tile_size, box.position.x, box.position.y, 0, window);
-						if (col_velocity.y != 0.f)
-						{
-							getHitbox().move({ 0.f, 1.0f });
-							can_move_vertically = false;
-
-						}
 						updateCollision(map, tile_size, box.position.x, box.position.y, 1, window);
 						if (col_velocity.y != 0.f)
 						{
 							getHitbox().move({ 0.f, -1.0f });
 							grounded = true;
 							can_move_vertically = false;
+							col_moved_up = true;
+						}
+						updateCollision(map, tile_size, box.position.x, box.position.y, 0, window);
+						if (col_velocity.y != 0.f && col_moved_up == false)
+						{
+							getHitbox().move({ 0.f, 1.0f });
+							can_move_vertically = false;
+							col_moved_up = true;
+
 						}
 						updateCollision(map, tile_size, box.position.x, box.position.y, 2, window);
 						if (col_velocity.x != 0.f)
@@ -73,7 +76,7 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 		}
 		level_count++;
 	}
-
+	col_moved_up = false;
 	level_count = 0;
 	for (Level& level : hidden_map)
 	{
@@ -87,19 +90,20 @@ void PlayerCharacter::update(float& gravity, std::vector<Level>& map, std::vecto
 				if (level.getTile(col_num, row_num) == 1) {
 					if (getGlobalBounds().findIntersection(box))
 					{
-						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 0, window);
-						if (col_velocity.y != 0.f)
-						{
-							getHitbox().move({ 0.f, 1.0f });
-							can_move_vertically = false;
-
-						}
 						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 1, window);
 						if (col_velocity.y != 0.f)
 						{
 							getHitbox().move({ 0.f, -1.0f });
 							grounded = true;
 							can_move_vertically = false;
+							col_moved_up = true;
+						}
+						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 0, window);
+						if (col_velocity.y != 0.f && col_moved_up == false)
+						{
+							getHitbox().move({ 0.f, 1.0f });
+							can_move_vertically = false;
+
 						}
 						updateCollision(hidden_map, tile_size, box.position.x, box.position.y, 2, window);
 						if (col_velocity.x != 0.f)
