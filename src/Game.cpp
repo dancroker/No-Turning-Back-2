@@ -188,6 +188,7 @@ void Game::update(float dt)
 		sf::Vector2f death = { 0.f, static_cast<float>(map.getMapSize() * 12 * 64) + 300.f };
 		if (input_handler->checkKeysPressed(sf::Keyboard::Scancode::Escape) || player.getPosition().y > death.y)
 		{
+			lose_sound.play();
 			current_game_state = GameState::MainMenu;
 			player_spawned = false;
 		}
@@ -217,6 +218,7 @@ void Game::update(float dt)
 		if (player.getSprite().getPosition().y < -5)
 		{
 			std::cout << "Win!";
+			win_sound.play();
 			select_level_menu.increaseLevelsUnlocked();
 			current_game_state = GameState::MainMenu;
 			player_spawned = false;
