@@ -74,6 +74,8 @@ bool Game::init()
 
 	player.setSpeed(player.getSpeed()/2);
 
+	sprite_jam.setPosition(sf::Vector2f{ ((64*2)-20), -(250 - 64) });
+	sprite_jam.setScale(sf::Vector2f {0.5f, 0.5f});	
 
 	return true;
 }
@@ -297,6 +299,7 @@ void Game::render()
 		window.draw(sprite_gameplay_background);
 		window.draw(sprite_side_background);
 		window.setView(player.getPlayerCamera());
+		window.draw(sprite_jam);
 
 
 		//window.draw(sprite_sfml_logo);

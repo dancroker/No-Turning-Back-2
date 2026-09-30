@@ -53,6 +53,7 @@ private:
 	sf::Texture texture_menu_title{ "./data/images/No-Turning-Back-2.png" };
 	sf::Texture texture_player{ "./data/images/sfml-icon-small.png" };
 	sf::Texture texture_side_background{ "./data/images/SideImage.png" };
+	sf::Texture texture_final_jam{ "./data/images/Final_Jam.png" };
 
 	sf::Texture texture_john{ "./data/images/John.png" };
 
@@ -63,6 +64,7 @@ private:
 
 	sf::Sprite sprite_john{ texture_john };
 
+	sf::Sprite sprite_jam{ texture_final_jam };
 
 	sf::Sprite sprite_menu_background{ texture_menu_background };
 	sf::Sprite sprite_side_background{ texture_side_background };
